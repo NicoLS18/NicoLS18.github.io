@@ -1,14 +1,24 @@
 ---
-title: "NicoLS18.github.io"
+title: "Nicolas Laub-Sabater"
+
+image: pufferfish.jpg
+about: 
+  template: jolla
+  image-shape: round
+  image-width: 17em
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/nicols2023
+    - text: GitHub
+      href: https://github.com/nicols18
+    - text: Email
+      href: mailto:nwlx2023@mymail.pomona.edu
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Hello!
 
 ```{r}
 1 + 1
 
 
 ```
-
