@@ -2,6 +2,7 @@
 title: "Olympics"
 format: html
 ---
+The following data is an overall summary of olympic athletes and their bios compiled from decades of Olympic statistics. It includes categories such as team, sport, height and weight. I have decided to take a look at the physical aspects of these athletes to see if there are any differences depending on where they come from around the globe.
 
 ```{r, echo=FALSE} 
 olympics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-08-06/olympics.csv')
