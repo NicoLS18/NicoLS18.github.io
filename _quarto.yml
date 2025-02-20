@@ -12,9 +12,9 @@ website:
       - text: "Data Viz"
         menu: 
          - text: "AI Detectors"
-           href: tidytuesday.html
-         - text: "Olympics"
            href: tt2.html
+         - text: "Olympics"
+           href: olympics.html
          
 
       
