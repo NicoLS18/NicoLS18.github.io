@@ -3,12 +3,23 @@ project:
   output-dir: docs
 
 website:
-  title: "NicoLS18.github.io"
+  title: "Nicolas Laub-Sabater"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
+      - text: "Data Viz"
+        menu: 
+         - text: "AI Detectors"
+           href: tidytuesday.html
+         - text: "Olympics"
+           href: tt2.html
+         
+
+      
+
+        
 
 format:
   html:

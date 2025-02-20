@@ -1,0 +1,30 @@
+---
+title: "Olympics"
+format: html
+---
+
+```{r, echo=FALSE} 
+tuesdata <- tidytuesdayR::tt_load('2024-08-06')
+
+library(ggplot2)
+library(tidyverse)
+
+
+
+
+```
+
+
+
+
+```{r}
+
+
+
+
+  
+
+```
+
+
+
