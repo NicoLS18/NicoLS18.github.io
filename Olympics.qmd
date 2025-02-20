@@ -1,0 +1,34 @@
+---
+title: "Olympics"
+format: html
+---
+
+```{r, echo=FALSE} 
+tuesdata <- tidytuesdayR::tt_load('2024-08-06')
+
+library(ggplot2)
+library(tidyverse)
+
+
+
+
+```
+
+
+
+
+```{r}
+
+
+
+
+  
+
+```
+
+
+
+This comes from the tidy tuesday of August the 6th in 2024: https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-08-06/readme.md
+This data specifically comes from RGriffin, it offers a comprehensive historical record of the modern Olympic Games, covering every event from the first Games in Athens in 1896 up to the Rio Games in 2016. The data was collected by the author through web scraping of www.sports-reference.com in May 2018. The R code used for both scraping and cleaning the data is available on GitHub. It’s highly recommended to review the author's kernel before starting your own analysis, as it provides valuable insights and methodologies that can enhance your work with this dataset.
+
+
