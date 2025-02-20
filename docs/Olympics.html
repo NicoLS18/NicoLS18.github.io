@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -149,14 +183,34 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="cell">
 <div class="cell-output cell-output-stderr">
-<pre><code>---- Compiling #TidyTuesday Information for 2024-08-06 ----
---- There is 1 file available ---
+<pre><code>Rows: 271116 Columns: 15
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (10): name, sex, team, noc, games, season, city, sport, event, medal
+dbl  (5): id, age, height, weight, year
 
-
-── Downloading files ───────────────────────────────────────────────────────────
-
-  1 of 1: "olympics.csv"
-── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 271,116 × 15
+      id name     sex     age height weight team  noc   games  year season city 
+   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
+ 1     1 A Dijia… M        24    180     80 China CHN   1992…  1992 Summer Barc…
+ 2     2 A Lamusi M        23    170     60 China CHN   2012…  2012 Summer Lond…
+ 3     3 Gunnar … M        24     NA     NA Denm… DEN   1920…  1920 Summer Antw…
+ 4     4 Edgar L… M        34     NA     NA Denm… DEN   1900…  1900 Summer Paris
+ 5     5 Christi… F        21    185     82 Neth… NED   1988…  1988 Winter Calg…
+ 6     5 Christi… F        21    185     82 Neth… NED   1988…  1988 Winter Calg…
+ 7     5 Christi… F        25    185     82 Neth… NED   1992…  1992 Winter Albe…
+ 8     5 Christi… F        25    185     82 Neth… NED   1992…  1992 Winter Albe…
+ 9     5 Christi… F        27    185     82 Neth… NED   1994…  1994 Winter Lill…
+10     5 Christi… F        27    185     82 Neth… NED   1994…  1994 Winter Lill…
+# ℹ 271,106 more rows
+# ℹ 3 more variables: sport &lt;chr&gt;, event &lt;chr&gt;, medal &lt;chr&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ lubridate 1.9.4     ✔ tibble    3.2.1
@@ -165,6 +219,23 @@ ul.task-list li input[type="checkbox"] {
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>subset_olympics <span class="ot">&lt;-</span> olympics <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(team <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"United States"</span>, <span class="st">"China"</span>, <span class="st">"Netherlands"</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(subset_olympics, <span class="fu">aes</span>(<span class="at">x=</span>height, <span class="at">y=</span>weight, <span class="at">color=</span>team, <span class="at">shape=</span>sex))<span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 6425 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Olympics_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>This comes from the tidy tuesday of August the 6th in 2024: https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-08-06/readme.md This data specifically comes from RGriffin, it offers a comprehensive historical record of the modern Olympic Games, covering every event from the first Games in Athens in 1896 up to the Rio Games in 2016. The data was collected by the author through web scraping of www.sports-reference.com in May 2018. The R code used for both scraping and cleaning the data is available on GitHub. It’s highly recommended to review the author’s kernel before starting your own analysis, as it provides valuable insights and methodologies that can enhance your work with this dataset.</p>

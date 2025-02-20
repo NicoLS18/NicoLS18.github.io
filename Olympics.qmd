@@ -4,7 +4,9 @@ format: html
 ---
 
 ```{r, echo=FALSE} 
-tuesdata <- tidytuesdayR::tt_load('2024-08-06')
+olympics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-08-06/olympics.csv')
+
+olympics
 
 library(ggplot2)
 library(tidyverse)
@@ -21,7 +23,10 @@ library(tidyverse)
 
 
 
-
+subset_olympics <- olympics |> 
+  dplyr::filter(team %in% c("United States", "China", "Netherlands"))
+ggplot(subset_olympics, aes(x=height, y=weight, color=team, shape=sex))+
+geom_point(alpha=0.7)
   
 
 ```
