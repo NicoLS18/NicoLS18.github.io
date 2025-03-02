@@ -1,8 +1,13 @@
 ---
 title: "GPT Detectors"
 format: html
+execute: 
+  warning: false
+  message: false
 ---
-This data was collected in an experiment to track how effective AI detectors were at truly capturing AI created work and whether non-native english speakers were at a higher likelihood to be flagged as AI. I chose to focus solely on the effectiveness of the AI detectors as I have always assumed that they are quite good at distinguishing work that is done 100% by a human vs an AI. 
+
+This data was collected in an experiment to track how effective AI detectors were at truly capturing AI created work and whether non-native english speakers were at a higher likelihood to be flagged as AI. I chose to focus solely on the effectiveness of the AI detectors as I have always assumed that they are quite good at distinguishing work that is done 100% by a human vs an AI.
+
 ```{r, echo=FALSE}
 library(tidyverse)
 library(ggplot2)
@@ -16,8 +21,6 @@ detectors <- tuesdata$detectors
 
 
 ```
-
-
 
 ```{r, echo=FALSE}
 
@@ -43,10 +46,9 @@ ggplot(match_percentage_by_model, aes(x = detector, y = match_percentage, fill =
   )
 
 ```
-It is interesting to see that these AI detectors are not very good at all. They are supposed to be quite good, especially at detecting when something is written 100% by AI or human. It urges the question of which side is at fault, has AI writing just advanced so much or is AI detecting simply not a very strong technology at the current moment. I have unfortunately missed the true goal of the data set but my initial interest was focused on the true capabilities of this AI detection and in my additional graphs I would focus more on the native/non-native piece of this data. 
 
-
+It is interesting to see that these AI detectors are not very good at all. They are supposed to be quite good, especially at detecting when something is written 100% by AI or human. It urges the question of which side is at fault, has AI writing just advanced so much or is AI detecting simply not a very strong technology at the current moment. I have unfortunately missed the true goal of the data set but my initial interest was focused on the true capabilities of this AI detection and in my additional graphs I would focus more on the native/non-native piece of this data.
 
 This information comes from the Tidy Tuesday of July 18th 2023: https://github.com/rfordatascience/tidytuesday/tree/main/data/2023/2023-07-18
 
-This dataset, created by Weixin Liang, Mert Yuksekgonul, Yining Mao, Eric Wu, and James Zou, was designed to address their hypothesis that GPT detectors exhibit bias against non-native English writers. The authors aim to investigate the fairness and effectiveness of widely-used GPT detectors in distinguishing between AI-generated and human-written content. With the growing reliance on generative language models, the researchers recognize the potential for misuse and are concerned about the impact on non-native English speakers. Through evaluating GPT detectors using writing samples from both native and non-native English writers, they discovered a pattern of misclassification, where non-native English samples were often incorrectly flagged as AI-generated, while native samples were accurately identified. The study also found that simple prompting strategies could reduce this bias and bypass detectors, further highlighting the unintentional penalization of writers with limited linguistic resources. Their findings emphasize the ethical considerations of using such detectors, particularly in evaluative or educational contexts, and raise awareness about the potential exclusion of non-native English speakers from global conversations. https://arxiv.org/abs/2304.02819 
+This dataset, created by Weixin Liang, Mert Yuksekgonul, Yining Mao, Eric Wu, and James Zou, was designed to address their hypothesis that GPT detectors exhibit bias against non-native English writers. The authors aim to investigate the fairness and effectiveness of widely-used GPT detectors in distinguishing between AI-generated and human-written content. With the growing reliance on generative language models, the researchers recognize the potential for misuse and are concerned about the impact on non-native English speakers. Through evaluating GPT detectors using writing samples from both native and non-native English writers, they discovered a pattern of misclassification, where non-native English samples were often incorrectly flagged as AI-generated, while native samples were accurately identified. The study also found that simple prompting strategies could reduce this bias and bypass detectors, further highlighting the unintentional penalization of writers with limited linguistic resources. Their findings emphasize the ethical considerations of using such detectors, particularly in evaluative or educational contexts, and raise awareness about the potential exclusion of non-native English speakers from global conversations. https://arxiv.org/abs/2304.02819
