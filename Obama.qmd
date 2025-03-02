@@ -1,0 +1,19 @@
+---
+title: "Obama"
+execute: 
+  warning: false
+  message: false
+---
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+
+```
+
+```{r}
+obama <- readr::read_csv('tweets.csv')
+
+head(obama)
+```
