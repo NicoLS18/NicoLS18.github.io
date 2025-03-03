@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -156,6 +190,27 @@ ul.task-list li input[type="checkbox"] {
 <p>The dataset is titled <strong><code>tweets.csv</code></strong>, which contains tweets posted from the official @POTUS Twitter account during President Barack Obama’s administration. The dataset includes columns such as the text of each tweet, timestamp, and other metadata.</p>
 <p>This analysis focuses primarily on the text column, which contains the actual content of the tweets. The goal is to examine how often President Obama mentioned key policy topics, such as healthcare, climate change, and the economy, over the course of his presidency.</p>
 <div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 27,346 × 10
+   tweet_id in_reply_to_status_id in_reply_to_user_id timestamp     source text 
+      &lt;dbl&gt;                 &lt;dbl&gt;               &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;
+ 1  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "\"N…
+ 2  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "\"W…
+ 3  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "\"T…
+ 4  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "RT …
+ 5  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "\"D…
+ 6  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "\"W…
+ 7  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "“In…
+ 8  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "\"T…
+ 9  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "“I …
+10  7.99e17                    NA                  NA 2016-11-16 1… "&lt;a h… "\"P…
+# ℹ 27,336 more rows
+# ℹ 4 more variables: retweeted_status_id &lt;dbl&gt;,
+#   retweeted_status_user_id &lt;dbl&gt;, retweeted_status_timestamp &lt;chr&gt;,
+#   expanded_urls &lt;chr&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -164,7 +219,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<p>This graph illustrates which words Obama used most throughout his presidency in his tweets while not including “the”, “and”, “to”, “of”, “in”, “a”, “on”, “for”, “with”, “is”, “that”,“s”, “at”, “potus”, “rt”, “amp”, “it”,“this”, “are” and “→”.</p>
+<p>This graph illustrates which words Obama used most throughout his presidency in his tweets while not including “the”, “and”, “to”, “of”, “in”, “a”, “on”, “for”, “with”, “is”, “that”,“s”, “at”, “potus”, “rt”, “amp”, “it”,“this”, “are” and “→”. This graph is not especially helpful as the most used words are not very descriptive of what is going on in the tweets. What we can learn is that many of his tweets are about current news as he utilizes “today” heavily and they tend to be directed to a specific audience. By utilizing “we” and “our” it illustrates that Obama is not just sharing opinions but directing messages to the general public. I do not have a clear explanation why Obama and president are utilized so heavily although I assume that Obama tended to share quotes from himself or articles written which therefore would cite him.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 2
@@ -181,8 +236,96 @@ ul.task-list li input[type="checkbox"] {
 9 healthcare     46</code></pre>
 </div>
 </div>
-<p>The number of times each of the following words is found exactly like this in unique tweets. Eliminates taxpayers and other additions to the words.</p>
-<pre><code></code></pre>
+<p>The number of times each of the following words is found exactly like this in unique tweets. Eliminates taxpayers and other additions to the words. I decided to create this plot because it highlighted which political themes he addressed most heavily in his tweets and is much more useful than the earlier utilized graph. The top three results are heavily tied together so I am not surprised to see them at the top as I am sure they would all appear together in each unique tweet.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>obamatime <span class="ot">&lt;-</span> obamaa <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Split the timestamp into date, time, timezone</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(timestamp, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"date"</span>, <span class="st">"time"</span>, <span class="st">"timezone"</span>), <span class="at">sep =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">s+"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Clean the time column to keep only HH:MM:SS (remove any stray characters just in case)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">str_replace_all</span>(time, <span class="st">"[^0-9:]"</span>, <span class="st">""</span>)) <span class="sc">|&gt;</span>  <span class="co"># Regular expression cleaning</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Parse time into an HMS object and create hour and time_chunk columns</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tlsime =</span> <span class="fu">hms</span>(time),  </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">hour_of_day =</span> <span class="fu">hour</span>(tlsime),  </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">time_chunk =</span> <span class="fu">cut</span>(hour_of_day, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">24</span>, <span class="at">by =</span> <span class="dv">4</span>), </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"00:00-03:59"</span>, <span class="st">"04:00-07:59"</span>, <span class="st">"08:00-11:59"</span>, </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"12:00-15:59"</span>, <span class="st">"16:00-19:59"</span>, <span class="st">"20:00-23:59"</span>), </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                          <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time_chunk =</span> <span class="fu">factor</span>(time_chunk, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"00:00-03:59"</span>, <span class="st">"04:00-07:59"</span>, <span class="st">"08:00-11:59"</span>, </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                                                    <span class="st">"12:00-15:59"</span>, <span class="st">"16:00-19:59"</span>, <span class="st">"20:00-23:59"</span>))) <span class="sc">|&gt;</span>  <span class="co"># Fix order explicitly</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(time_chunk)  <span class="co"># Arrange based on the time chunk order</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Now count the tweets by time of day</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>tweetsbytime <span class="ot">&lt;-</span> obamatime <span class="sc">|&gt;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(time_chunk)  <span class="co"># Count tweets by time chunk</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the number of tweets by time of day</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>tweetsbytime <span class="sc">|&gt;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time_chunk, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Obama Tweets by Time of Day (4-hour Chunks)"</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Time of Day (4-hour intervals)"</span>,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Tweets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Obama_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>obamatime <span class="ot">&lt;-</span> obamatime <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(date))  <span class="co"># Convert date to Date class if it's not already</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the month and year from the date and count the tweets by month</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>tweetsbymonth <span class="ot">&lt;-</span> obamatime <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month_year =</span> <span class="fu">format</span>(date, <span class="st">"%Y-%m"</span>)) <span class="sc">|&gt;</span>  <span class="co"># Create a column for Year-Month</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(month_year)  <span class="co"># Count the tweets by month-year</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the number of tweets per month</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>tweetsbymonth <span class="sc">|&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_year, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Obama Tweets by Month Over His Whole Presidency"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Month-Year"</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Tweets"</span>) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))  <span class="co"># Rotate x-axis labels for better readability</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Obama_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tweetsbymonth <span class="ot">&lt;-</span> obamatime <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">format</span>(date, <span class="st">"%m"</span>)) <span class="sc">|&gt;</span>  <span class="co"># Extract the month (as numeric)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(month)  <span class="co"># Count the tweets by month</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the number of tweets per month (grouped by month)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>tweetsbymonth <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Obama Tweets by Month"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Month"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Tweets"</span>) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"01"</span> <span class="ot">=</span> <span class="st">"January"</span>, <span class="st">"02"</span> <span class="ot">=</span> <span class="st">"February"</span>, <span class="st">"03"</span> <span class="ot">=</span> <span class="st">"March"</span>, </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"04"</span> <span class="ot">=</span> <span class="st">"April"</span>, <span class="st">"05"</span> <span class="ot">=</span> <span class="st">"May"</span>, <span class="st">"06"</span> <span class="ot">=</span> <span class="st">"June"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"07"</span> <span class="ot">=</span> <span class="st">"July"</span>, <span class="st">"08"</span> <span class="ot">=</span> <span class="st">"August"</span>, <span class="st">"09"</span> <span class="ot">=</span> <span class="st">"September"</span>, </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"10"</span> <span class="ot">=</span> <span class="st">"October"</span>, <span class="st">"11"</span> <span class="ot">=</span> <span class="st">"November"</span>, <span class="st">"12"</span> <span class="ot">=</span> <span class="st">"December"</span>)) <span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))  <span class="co"># Rotate x-axis labels for better readability</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Obama_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 
