@@ -301,6 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>I was then interested if there were specific times of the year which brought upon extra tweeting from Obama but accidentally did not group by month so I had this messy graph. I was going to delete it but I found this trend quite interesting that the longer he was in office the more tweets he was sending out so I left this even though the x-axis is unclear. That jumble of numbers is the year followed by the month. For example 2012-02.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tweetsbymonth <span class="ot">&lt;-</span> obamatime <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">format</span>(date, <span class="st">"%m"</span>)) <span class="sc">|&gt;</span>  <span class="co"># Extract the month (as numeric)</span></span>
@@ -326,6 +327,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>This is the graph I was actually hoping to create earlier and found that it is much less helpful in showing any real trends. I found it interesting that January had the most tweets and maybe that was due to issuing plans or goals for the new year or possibly sharing information and reports about the inauguration. But what did surprise was that it looked like a ton of tweets were being sent by him so that led me to the following calculation just out of interest.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.67786</code></pre>
+</div>
+</div>
+<p>This function found that Obama averaged 10.68 tweets per day which seems pretty ridiculous to me although I do understand that often he was just reposting something that had been created by others. I also understand this is supposed to be an informal type of sharing information so these may be quick thoughts that he quickly types up and sends out.</p>
 
 
 
