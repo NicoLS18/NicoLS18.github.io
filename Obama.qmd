@@ -10,10 +10,105 @@ library(tidyverse)
 library(ggplot2)
 library(stringr)
 
+
 ```
 
 ```{r}
 obama <- readr::read_csv('tweets.csv')
 
-head(obama)
+
+
+
 ```
+
+```{r, echo=FALSE}
+cleanobama <- obama |>
+  mutate(text = str_to_lower(text),
+         text = str_replace_all(text, "http[[:alnum:][:punct:]]*", ""),  # Remove URLs
+         text = str_replace_all(text, "[[:punct:]]", " "),
+         text = str_replace_all(text, "—@POTUS.*", ""),
+         text= str_replace_all(text, "\n", "")) 
+
+# Define stopwords to exclude
+stopwords <- c("the", "and", "to", "of", "in", "a", "on", "for", "with", "is", "that","s", "at", "potus", "  ", "rt", "amp", "it","this", "are","→")
+
+# Tokenize the text, remove stopwords, and count word frequencies
+word_counts <- cleanobama |>
+  mutate(words = str_split(text, "\\s+")) |>  # Split text into words
+  unnest(words) |>  # Convert list of words into individual rows
+  filter(words != "", !words %in% stopwords) |>  # Exclude stopwords
+  count(words, sort = TRUE)  # Count word frequencies
+
+
+word_counts |>
+  slice_max(n, n = 10) |>  # Get top 10 most frequent words
+  ggplot(aes(x = reorder(words, n), y = n)) +
+  geom_col(fill = "skyblue") +
+  coord_flip() +
+  labs(title = "Top 10 Words in Obama's Tweets",
+       x = "Word",
+       y = "Frequency")
+
+```
+
+```{r, echo=FALSE}
+
+
+
+policy_keywords <- c("healthcare", "education", "climate", "economy", "jobs", "tax", "immigration", "gun", "poverty")
+
+# Clean the text column (lowercase and remove punctuation)
+obama <- obama |>
+  mutate(text = str_to_lower(text),  # Convert to lowercase
+         text = str_replace_all(text, "[[:punct:]]", " "))  # Remove punctuation
+
+# Create a column that flags the presence of any policy-related keywords
+obama <- obama |>
+  mutate(policy_mentions = str_detect(text, paste(policy_keywords, collapse = "|")))  # Flag if any policy keyword is mentioned
+
+# Count how many unique tweets mention each policy keyword
+policy_counts <- map_dfr(policy_keywords, ~{
+  data.frame(
+    policy = .x, 
+    count = sum(str_detect(obama$text, fixed(.x)))  # Count how many tweets mention the keyword (1 if the keyword appears, 0 if not)
+  )
+}) |>
+  arrange(desc(count))
+
+
+# Print the policy counts (number of tweets mentioning each policy)
+print(policy_counts)
+
+
+```
+
+The number of times each of the following words is found in unique tweets.
+
+```{r, echo=FALSE}
+policy_keywords <- c("healthcare", "education", "climate", "economy", "jobs", "tax", "immigration", "gun", "poverty")
+
+# Clean the text column (lowercase and remove punctuation)
+obama <- obama |>
+  mutate(text = str_to_lower(text),  # Convert to lowercase
+         text = str_replace_all(text, "[[:punct:]]", " "))  # Remove punctuation
+
+# Create a column that flags the presence of any policy-related keywords
+obama <- obama |>
+  mutate(policy_mentions = str_detect(text, paste(policy_keywords, collapse = "|")))  # Flag if any policy keyword is mentioned
+
+# Filter the rows that mention any policy
+policy_mentions <- obama |>
+  filter(policy_mentions == TRUE) |>
+  select(text)  # Only select the text of the tweets that mention policies
+
+# Get the count of mentions for each policy keyword
+policy_counts <- map_dfr(policy_keywords, ~{
+  data.frame(policy = .x, count = sum(str_count(obama$text, fixed(.x))))  # Count mentions of each policy keyword
+}) |>
+    arrange(desc(count))
+
+# Print the policy counts
+print(policy_counts)
+```
+
+The number of times that each of the following words is specifically stated throughout the data.
