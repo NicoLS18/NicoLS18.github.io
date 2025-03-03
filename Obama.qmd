@@ -3,9 +3,12 @@ title: "Obama"
 execute: 
   warning: false
   message: false
+format:
+  html: 
+    code-fold: true
 ---
 
-```{r, echo=FALSE}
+```{r}
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -22,7 +25,7 @@ The dataset is titled **`tweets.csv`**, which contains tweets posted from the of
 
 This analysis focuses primarily on the text column, which contains the actual content of the tweets. The goal is to examine how often President Obama mentioned key policy topics, such as healthcare, climate change, and the economy, over the course of his presidency.
 
-```{r, echo=FALSE}
+```{r}
 
 
 obamaa <- readr::read_csv('tweets.csv')
@@ -30,7 +33,7 @@ print(obamaa)
 
 ```
 
-```{r, echo=FALSE}
+```{r}
 cleanobama <- obamaa |>
   mutate(text = str_to_lower(text),
          text = str_replace_all(text, "http[[:alnum:][:punct:]]*", ""),  
@@ -62,7 +65,7 @@ word_counts |>
 
 This graph illustrates which words Obama used most throughout his presidency in his tweets while not including "the", "and", "to", "of", "in", "a", "on", "for", "with", "is", "that","s", "at", "potus", "rt", "amp", "it","this", "are" and "→". This graph is not especially helpful as the most used words are not very descriptive of what is going on in the tweets. What we can learn is that many of his tweets are about current news as he utilizes "today" heavily and they tend to be directed to a specific audience. By utilizing "we" and "our" it illustrates that Obama is not just sharing opinions but directing messages to the general public. I do not have a clear explanation why Obama and president are utilized so heavily although I assume that Obama tended to share quotes from himself or articles written which therefore would cite him.
 
-```{r, echo=FALSE}
+```{r}
 
 
 
@@ -178,7 +181,7 @@ tweetsbymonth |>
 
 This is the graph I was actually hoping to create earlier and found that it is much less helpful in showing any real trends. I found it interesting that January had the most tweets and maybe that was due to issuing plans or goals for the new year or possibly sharing information and reports about the inauguration. But what did surprise was that it looked like a ton of tweets were being sent by him so that led me to the following calculation just out of interest.
 
-```{r, echo=FALSE}
+```{r}
 # Calculate the total number of tweets
 total_tweets <- nrow(obamatime)
 
