@@ -13,7 +13,15 @@ library(stringr)
 
 ```
 
-```{r}
+The data used in this analysis comes from the Obama Presidential Library, specifically from their Digital Research Room. It is publicly available at:
+
+🔗 <https://www.obamalibrary.gov/digital-research-room/archived-white-house-websites-and-social-media>
+
+The dataset is titled **`tweets.csv`**, which contains tweets posted from the official \@POTUS Twitter account during President Barack Obama’s administration. The dataset includes columns such as the text of each tweet, timestamp, and other metadata.
+
+This analysis focuses primarily on the text column, which contains the actual content of the tweets. The goal is to examine how often President Obama mentioned key policy topics, such as healthcare, climate change, and the economy, over the course of his presidency.
+
+```{r, echo=FALSE}
 obama <- readr::read_csv('tweets.csv')
 
 
@@ -51,40 +59,42 @@ word_counts |>
 
 ```
 
+This graph illustrates which words Obama used most throughout his presidency in his tweets while not including "the", "and", "to", "of", "in", "a", "on", "for", "with", "is", "that","s", "at", "potus", "rt", "amp", "it","this", "are" and "→".
+
 ```{r, echo=FALSE}
 
 
 
-# Define policy-related keywords (only match these literal words)
+
 policy_keywords <- c("healthcare", "education", "climate", "economy", 
                      "jobs", "tax", "immigration", "gun", "poverty")
 
-# Pre-process tweets (lowercase and remove punctuation)
-obama <- obama |>
-  mutate(text = str_to_lower(text),  # Lowercase
-         text = str_replace_all(text, "[[:punct:]]", " "))  # Remove punctuation
 
-# Function to create regex with strict whole-word lookarounds
+obama <- obama |>
+  mutate(text = str_to_lower(text),  # stringr
+         text = str_replace_all(text, "[[:punct:]]", " "))  #stringr
+
+# regular expressions
 add_word_boundaries <- function(word) {
-  paste0("(?<!\\w)", word, "(?!\\w)")  # Matches whole word only
+  paste0("(?<!\\w)", word, "(?!\\w)")  #look behind lookaround
 }
 
-# Create named list of regexes for each policy word
+
 policy_regexes <- setNames(map(policy_keywords, add_word_boundaries), policy_keywords)
 
-# Count how many unique tweets mention each policy keyword (exact word only)
+
 policy_counts <- map_dfr(names(policy_regexes), ~{
   keyword_regex <- policy_regexes[[.x]]
 
-  # Detect if each tweet mentions this exact word
+
   obama |>
     mutate(has_word = str_detect(text, regex(keyword_regex))) |>
     summarize(policy = .x,
-              count = sum(has_word))  # This counts tweets where the word appears at least once
+              count = sum(has_word))  
 }) |>
   arrange(desc(count))
 
-# Print result table (instead of graph)
+
 print(policy_counts)
 
 
@@ -92,5 +102,5 @@ print(policy_counts)
 
 The number of times each of the following words is found exactly like this in unique tweets. Eliminates taxpayers and other additions to the words.
 
-```{}
+```         
 ```
