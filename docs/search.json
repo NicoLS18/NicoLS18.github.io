@@ -46,6 +46,6 @@
     "href": "Obama.html",
     "title": "Obama",
     "section": "",
-    "text": "obama &lt;- readr::read_csv('tweets.csv')\n\n\n\n\n\n\n\n\n\n\n\n\n       policy count\n1        jobs  1122\n2     climate   956\n3     economy   664\n4         tax   580\n5 immigration   430\n6         gun   418\n7   education   412\n8     poverty   151\n9  healthcare   107\n\n\nThe number of times each of the following words is found in unique tweets.\n\n\n       policy count\n1        jobs  1270\n2     climate  1162\n3     economy   668\n4         tax   664\n5 immigration   492\n6         gun   489\n7   education   419\n8     poverty   157\n9  healthcare   109\n\n\nThe number of times that each of the following words is specifically stated throughout the data."
+    "text": "obama &lt;- readr::read_csv('tweets.csv')\n\n\n\n\n\n\n\n\n\n\n\n\n# A tibble: 9 × 2\n  policy      count\n  &lt;chr&gt;       &lt;int&gt;\n1 jobs          953\n2 economy       661\n3 tax           420\n4 education     399\n5 climate       318\n6 gun           272\n7 immigration   226\n8 poverty       144\n9 healthcare     46\n\n\nThe number of times each of the following words is found exactly like this in unique tweets. Eliminates taxpayers and other additions to the words."
   }
 ]
