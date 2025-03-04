@@ -23,7 +23,7 @@ The data used in this analysis comes from the Obama Presidential Library, specif
 
 The dataset is titled **`tweets.csv`**, which contains tweets posted from the official \@POTUS Twitter account during President Barack Obama’s administration. The dataset includes columns such as the text of each tweet, timestamp, and other metadata.
 
-This analysis focuses primarily on the text column, which contains the actual content of the tweets. The goal is to examine how often President Obama mentioned key policy topics, such as healthcare, climate change, and the economy, over the course of his presidency.
+This analysis focuses primarily on the text column, which contains the actual content of the tweets. The goal is to examine how often President Obama mentioned key policy topics, such as healthcare, climate change, and the economy, over the course of his presidency. The analysis finishes with a study of when Obama tweets, looking for trends and then attempting to put a reason on these trends.
 
 ```{r}
 
@@ -111,8 +111,7 @@ obamatime <- obamaa |>
   # Split the timestamp into date, time, timezone
   separate(timestamp, into = c("date", "time", "timezone"), sep = "\\s+") |>
   
-  # Clean the time column to keep only HH:MM:SS (remove any stray characters just in case)
-  mutate(time = str_replace_all(time, "[^0-9:]", "")) |>  # Regular expression cleaning
+  mutate(time = str_replace_all(time, "[^0-9:]", "")) |>  
   
   # Parse time into an HMS object and create hour and time_chunk columns
   mutate(tlsime = hms(time),  
@@ -122,14 +121,14 @@ obamatime <- obamaa |>
                                      "12:00-15:59", "16:00-19:59", "20:00-23:59"), 
                           include.lowest = TRUE)) |> 
   mutate(time_chunk = factor(time_chunk, levels = c("00:00-03:59", "04:00-07:59", "08:00-11:59", 
-                                                    "12:00-15:59", "16:00-19:59", "20:00-23:59"))) |>  # Fix order explicitly
-  arrange(time_chunk)  # Arrange based on the time chunk order
+                                                    "12:00-15:59", "16:00-19:59", "20:00-23:59"))) |>  
+  arrange(time_chunk) 
 
 # Now count the tweets by time of day
 tweetsbytime <- obamatime |>
-  count(time_chunk)  # Count tweets by time chunk
+  count(time_chunk)  
 
-# Plot the number of tweets by time of day
+
 tweetsbytime |>
   ggplot(aes(x = time_chunk, y = n)) +
   geom_col(fill = "steelblue") +
@@ -141,31 +140,31 @@ tweetsbytime |>
 
 ```{r}
 obamatime <- obamatime |>
-  mutate(date = as.Date(date))  # Convert date to Date class if it's not already
+  mutate(date = as.Date(date)) 
 
-# Extract the month and year from the date and count the tweets by month
+
 tweetsbymonth <- obamatime |>
-  mutate(month_year = format(date, "%Y-%m")) |>  # Create a column for Year-Month
-  count(month_year)  # Count the tweets by month-year
+  mutate(month_year = format(date, "%Y-%m")) |>  
+  count(month_year)  
 
-# Plot the number of tweets per month
+
 tweetsbymonth |>
   ggplot(aes(x = month_year, y = n)) +
   geom_col(fill = "steelblue") +
   labs(title = "Obama Tweets by Month Over His Whole Presidency",
        x = "Month-Year",
        y = "Number of Tweets") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for better readability
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 ```
 
 I was then interested if there were specific times of the year which brought upon extra tweeting from Obama but accidentally did not group by month so I had this messy graph. I was going to delete it but I found this trend quite interesting that the longer he was in office the more tweets he was sending out so I left this even though the x-axis is unclear. That jumble of numbers is the year followed by the month. For example 2012-02.
 
 ```{r}
 tweetsbymonth <- obamatime |>
-  mutate(month = format(date, "%m")) |>  # Extract the month (as numeric)
-  count(month)  # Count the tweets by month
+  mutate(month = format(date, "%m")) |>
+  count(month)  
 
-# Plot the number of tweets per month (grouped by month)
+
 tweetsbymonth |>
   ggplot(aes(x = month, y = n)) +
   geom_col(fill = "steelblue") +
@@ -176,26 +175,24 @@ tweetsbymonth |>
                               "04" = "April", "05" = "May", "06" = "June",
                               "07" = "July", "08" = "August", "09" = "September", 
                               "10" = "October", "11" = "November", "12" = "December")) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for better readability
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 ```
 
 This is the graph I was actually hoping to create earlier and found that it is much less helpful in showing any real trends. I found it interesting that January had the most tweets and maybe that was due to issuing plans or goals for the new year or possibly sharing information and reports about the inauguration. But what did surprise was that it looked like a ton of tweets were being sent by him so that led me to the following calculation just out of interest.
 
 ```{r}
-# Calculate the total number of tweets
+
 total_tweets <- nrow(obamatime)
 
-# Calculate the total number of unique days
 total_days <- n_distinct(obamatime$date)
 
-# Calculate the average number of tweets per day
 average_tweets_per_day <- total_tweets / total_days
 
-# Print the result
+
 average_tweets_per_day
 
 
 
 ```
 
-This function found that Obama averaged 10.68 tweets per day which seems pretty ridiculous to me although I do understand that often he was just reposting something that had been created by others. I also understand this is supposed to be an informal type of sharing information so these may be quick thoughts that he quickly types up and sends out.
+This function found that Obama averaged 10.68 tweets per day which seems pretty ridiculous to me although I do understand that often he was just reposting something that had been created by others. I also understand this is supposed to be an informal type of sharing information so these may be quick thoughts that he quickly types up and sends out. Lastly, it would not be surprising if there are other individuals who post for him so many of the tweets may not be manually handed by Obama.
