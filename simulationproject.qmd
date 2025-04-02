@@ -188,3 +188,5 @@ ggplot(df, aes(x = red_dot_count)) +
   theme_minimal()
 
 ```
+
+Created the simulation and ran it 3 times which can be seen in the first three scatter plots although those are not very helpful as it impossible to identify which student ID is which. So then I calculated the overall percentage of someone receiving at least one single throughout the 3 years and it came out to 43%. Then in order to create a more effective visual representation I created a histogram that shows how many times each student got a single.

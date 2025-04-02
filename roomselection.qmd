@@ -1,0 +1,11 @@
+---
+title: "roomselection"
+execute: 
+  warning: false
+  message: false
+format:
+  html: 
+    code-fold: true
+---
+
+Last semester I was given one of the worst possible times, ending up in the last 15 mins of the nearly 4 hour process. My aspirations of getting a single dashed in an instant when I checked my time. Now as I look ahead for the following years I am still looking to occupy my own room. I understand there are now more options such as a suite or going off campus but in order to keep the simulation effective and repeatable with map I utilized the same concept for all three years. (Freshman year there was no room draw). I estimated that there were around 70 singles opportunities for the 400 students we have in each grade. I then simulated each and then calculated the percentage of students that get a a single at least once in their three years here.
