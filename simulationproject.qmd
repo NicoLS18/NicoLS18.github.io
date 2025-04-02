@@ -12,6 +12,7 @@ Last semester I was given one of the worst possible times, ending up in the last
 
 ```{r}
 library(tidyverse)
+library(ggplot2)
 
 # Function to simulate the room draw
 simulate_room_draw <- function(total_students = 400, students_per_draw = 5, draw_interval = 3) {
