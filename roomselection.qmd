@@ -166,8 +166,8 @@ simulations <- map(1:3, ~ simulate_room_draw())
 
 student_red_dot_count <- rep(0, 400)
 
-
-map(simulations, ~ {
+#utilized walk instead of map here bc I found that it would eliminate the result and would set up the graph without teh additional numbers. 
+walk(simulations, ~ {
   red_dot_students <- .x$order_of_picking[1:70]
   student_red_dot_count[red_dot_students] <<- student_red_dot_count[red_dot_students] + 1
 })
