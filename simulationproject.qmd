@@ -14,54 +14,51 @@ Last semester I was given one of the worst possible times, ending up in the last
 library(tidyverse)
 library(ggplot2)
 
-# Function to simulate the room draw
+
 simulate_room_draw <- function(total_students = 400, students_per_draw = 5, draw_interval = 3) {
-  # Create a vector to represent students (1 to 400)
+
   students <- 1:total_students
   
-  # Create a vector to track students who have picked a room
+ 
   students_picked <- rep(FALSE, total_students)
-  
-  # Vector to track the order of students picking a room
+
   order_of_picking <- c()
   
   num_draws <- 0
   
-  # Simulate the process until all students have picked a room
+
   while (sum(students_picked) < total_students) {
-    # Randomly select 5 students who haven't picked a room yet
+
     available_students <- which(!students_picked)
     selected_students <- sample(available_students, min(students_per_draw, length(available_students)), replace = FALSE)
     
-    # Mark those students as having picked a room
     students_picked[selected_students] <- TRUE
     
-    # Add selected students to the order of picking
+  
     order_of_picking <- c(order_of_picking, selected_students)
     
-    # Increment the number of draws (or rounds)
+    
     num_draws <- num_draws + 1
   }
   
-  # Return the order of picking and the number of draws
+ 
   list(order_of_picking = order_of_picking, num_draws = num_draws)
 }
 
-# Run the simulation 3 times
+
 set.seed(42)
 simulations <- map(1:3, ~ simulate_room_draw())
 
 
-  # Plot for each simulation
   map2(simulations, 1:3, ~ {
-    # Get the order of picking for this simulation
+    
     order_of_picking <- .x$order_of_picking
     draw_number <- 1:length(order_of_picking)
     
-    # Determine the color for each student (red for the first 70, blue otherwise)
+    
     colors <- ifelse(order_of_picking <= 70, "red", "blue")
     
-    # Create a tibble to plot the points
+   
     tibble(student = order_of_picking, draw_number = draw_number, color = colors) %>%
       ggplot(aes(x = draw_number, y = student, color = color)) +
       geom_point() +
@@ -76,50 +73,48 @@ simulations <- map(1:3, ~ simulate_room_draw())
 ```{r}
 
 
-# Function to simulate the room draw
+
 simulate_room_draw <- function(total_students = 400, students_per_draw = 5, draw_interval = 3) {
-  # Create a vector to represent students (1 to 400)
+
   students <- 1:total_students
   
-  # Create a vector to track students who have picked a room
+
   students_picked <- rep(FALSE, total_students)
   
-  # Vector to track the order of students picking a room
+ 
   order_of_picking <- c()
   
   num_draws <- 0
-  
-  # Simulate the process until all students have picked a room
+
   while (sum(students_picked) < total_students) {
-    # Randomly select 5 students who haven't picked a room yet
+ 
     available_students <- which(!students_picked)
     selected_students <- sample(available_students, min(students_per_draw, length(available_students)), replace = FALSE)
-    
-    # Mark those students as having picked a room
+
     students_picked[selected_students] <- TRUE
     
-    # Add selected students to the order of picking
+    
     order_of_picking <- c(order_of_picking, selected_students)
     
-    # Increment the number of draws (or rounds)
+  
     num_draws <- num_draws + 1
   }
   
-  # Return the order of picking and the number of draws
+  
   list(order_of_picking = order_of_picking, num_draws = num_draws)
 }
 
-# Run the simulation 3 times
+
 set.seed(42)
 simulations <- map(1:3, ~ simulate_room_draw())
 
-# Combine all the students who were red dots in each simulation
+
 red_dot_students <- map(simulations, ~ .x$order_of_picking[1:70])
 
-# Unify all the red dot students from all simulations
+
 all_red_dots <- unique(unlist(red_dot_students))
 
-# Calculate the probability of being a red dot at least once
+
 total_students <- 400
 prob_red_dot_at_least_once <- length(all_red_dots) / total_students
 prob_red_dot_at_least_once
