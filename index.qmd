@@ -15,8 +15,7 @@ about:
       href: mailto:nwlx2023@mymail.pomona.edu
 ---
 
-Hello!
-My name is Nicolas Laub-Sabater and I am an economics and environmental science double major at Pomona College. I enjoy fishing, competing in different sports such as golf and in general just spending time outside. I am also Puerto Rican which has given me the opportunity to be bilingual and I have continued to cherish this gift and hope to improve it when I go abroad to Spain next semester!
+Hello! My name is Nicolas Laub-Sabater and I am an economics and environmental science double major at Pomona College. I enjoy fishing, competing in different sports such as golf and in general just spending time outside. I am also Puerto Rican which has given me the opportunity to be bilingual and I have continued to cherish this gift and hope to improve it when I go abroad to Spain next semester!
 
 ```{r}
 

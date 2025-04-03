@@ -47,12 +47,12 @@ simulate_room_draw <- function(total_students = 400, students_per_draw = 5, draw
   list(order_of_picking = order_of_picking, num_draws = num_draws)
 }
 
-# Run the simulation 3 times
+
 set.seed(42)
 simulations <- map(1:3, ~ simulate_room_draw())
 
-# Set up a plot
-ggplot() 
+
+
   # Plot for each simulation
   map2(simulations, 1:3, ~ {
     # Get the order of picking for this simulation

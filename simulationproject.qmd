@@ -51,8 +51,7 @@ simulate_room_draw <- function(total_students = 400, students_per_draw = 5, draw
 set.seed(42)
 simulations <- map(1:3, ~ simulate_room_draw())
 
-# Set up a plot
-ggplot() 
+
   # Plot for each simulation
   map2(simulations, 1:3, ~ {
     # Get the order of picking for this simulation
@@ -75,7 +74,7 @@ ggplot()
 ```
 
 ```{r}
-library(tidyverse)
+
 
 # Function to simulate the room draw
 simulate_room_draw <- function(total_students = 400, students_per_draw = 5, draw_interval = 3) {
@@ -128,7 +127,7 @@ prob_red_dot_at_least_once
 ```
 
 ```{r}
-library(tidyverse)
+
 
 # Function to simulate the room draw
 simulate_room_draw <- function(total_students = 400, students_per_draw = 5, draw_interval = 3) {
