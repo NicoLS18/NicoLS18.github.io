@@ -128,61 +128,61 @@ prob_red_dot_at_least_once
 
 ```{r}
 
-
-# Function to simulate the room draw
 simulate_room_draw <- function(total_students = 400, students_per_draw = 5, draw_interval = 3) {
-  # Create a vector to represent students (1 to 400)
+
   students <- 1:total_students
   
-  # Create a vector to track students who have picked a room
+
   students_picked <- rep(FALSE, total_students)
   
-  # Vector to track the order of students picking a room
+
   order_of_picking <- c()
   
   num_draws <- 0
   
-  # Simulate the process until all students have picked a room
+
   while (sum(students_picked) < total_students) {
-    # Randomly select 5 students who haven't picked a room yet
+
     available_students <- which(!students_picked)
     selected_students <- sample(available_students, min(students_per_draw, length(available_students)), replace = FALSE)
     
-    # Mark those students as having picked a room
+  
     students_picked[selected_students] <- TRUE
     
-    # Add selected students to the order of picking
+ 
     order_of_picking <- c(order_of_picking, selected_students)
     
-    # Increment the number of draws (or rounds)
+   
     num_draws <- num_draws + 1
   }
   
-  # Return the order of picking and the number of draws
+  
   list(order_of_picking = order_of_picking, num_draws = num_draws)
 }
 
-# Run the simulation 3 times
+
 set.seed(42)
 simulations <- map(1:3, ~ simulate_room_draw())
 
-# Create a vector to track how many times each student is a red dot
+
 student_red_dot_count <- rep(0, 400)
 
-# Update the red dot count for the first 70 students in each simulation
-map(simulations, ~ {
+
+#utilized walk instead of map here bc I found that it would eliminate the result and would set up the graph without teh additional numbers. 
+walk(simulations, ~ {
   red_dot_students <- .x$order_of_picking[1:70]
   student_red_dot_count[red_dot_students] <<- student_red_dot_count[red_dot_students] + 1
 })
 
-# Create a histogram of how many times students were red dots (0, 1, 2, or 3 times)
+
 df <- tibble(red_dot_count = student_red_dot_count)
 
-# Plot the histogram
+
+
 ggplot(df, aes(x = red_dot_count)) +
   geom_histogram(binwidth = 1, fill = "blue", alpha = 0.7) +
-  labs(title = "Distribution of How Many Times Students Got a Red Dot",
-       x = "Number of Red Dots (Times Selected)",
+  labs(title = "Distribution of How Many Times Students Got a Single",
+       x = "Times selected for Single",
        y = "Number of Students") +
   scale_x_continuous(breaks = 0:3) +  
   theme_minimal()
