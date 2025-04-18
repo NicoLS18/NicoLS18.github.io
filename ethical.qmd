@@ -66,7 +66,7 @@ The value of being open to changing methods and conclusions in response to new k
 
 After writing the above content my mom came across another article related to these concepts which I thought was exceptionally intriguing so I have decided to add an additional couple paragraphs addressing a few of the earlier questions/values but with the new situation. The new example I am focusing on is the facial recognition AI program by Clearview AI. Clearview scraped billions of photos off of social media platforms without the consent of the platforms or the individuals and was actually fined tens of millions of dollars by multiple countries for disregarding privacy laws while creating their database. So clearly when looking at whether this data should be utilized it absolutely should not as there has been no consent to its acquisition and therefore its use. Yet the USA instead of imposing fines or attempting to restrict Clearview has implemented their technology in major branches of government. Similarly to predictive policing, this data is mainly utilized in law enforcement agencies, specifically ICE and the FBI. Also similarly, this data is mainly utilized to surveil marginalized populations (Business & Human Rights Resource Centre) along the borders and within the United States. 
 
-There are a couple of clear issues with this technology, beginning with the concept of over policing a certain demographic will lead to more violations, which leads to more policing and overall the same feedback loop found in predictive policing. This feedback loop would further promote negative stereotypes of migrants entering the US, which may be the goal of ICE as they would in turn receive more funding. Then the most disturbing issue being the 
+There are a couple of clear issues with this technology, beginning with the concept of over policing a certain demographic will lead to more violations, which leads to more policing and overall the same feedback loop found in predictive policing. This feedback loop would further promote negative stereotypes of migrants entering the US, which may be the goal of ICE as they would in turn receive more funding. Then the most disturbing issue being the fact that all of their data was taken without any consent by the individuals or the platforms that hosted them. Instead Clearview will not say where they accessed these photos although clearly they came from social media platforms. Clearview as discussed earlier has been criticized by other countries in a major way and yet the USA is instead supporting them which I find surprising and is a scary look for how the future of data privacy protection legislation may unfold. Currently privacy laws have been mainly designated by state especially because with so much political turmoil many large bills that have been introduced have been unable to pass. This is also due to the “increasing complexity of privacy concerns” (DLA Piper) which has made a comprehensive act essentially impossible to impose. Overall these privacy concerns has been pushed to the side and any efforts are quickly shut down so we may not be seeing any truly effective and comprehensive privacy legislation being implemented any time soon.
 
 \
 
@@ -94,7 +94,9 @@ Clearview AI facial recognition:
 <https://www.forbes.com/sites/roberthart/2024/09/03/clearview-ai-controversial-facial-recognition-firm-fined-33-million-for-illegal-database/> 
 
 \
-\
+General privacy laws:
+
+<https://www.dlapiperdataprotection.com/?t=law&c=US#:~:text=Under%20the%20comprehensive%20US%20state,of%20targeted%20advertising%20or%20profiling>. \
 
 More examples: 
 
