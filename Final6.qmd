@@ -3,6 +3,41 @@ title: "Final6"
 format: html
 ---
 
+
+The baseball team had a record year last year, reaching the finals in Cleveland, Ohio which is two rounds further than they had ever reached in program history. Yet this year the team spirit is that this season has been let down, beginning as a #5 seed in preseason ratings and have since dropped out of the top 35 nationally. This pattern repeats one seen only 3 years prior when the team had a phenomenal year and made a real push into the playoffs and then the following year was a disappointment as their win percentage dropped over 200 points and they secured 10 fewer wins. So the question then becomes are these "poor" seasons truly below average seasons? Or are these outstanding years the true outliers and the year following is purely regression towards the mean? 
+
+This was the question I set out to answer. Instead of scraping past season data I chose to utilize current stats that stated the win percentage of Pomona Pitzer vs their opponents. To do this I went into massey ratings (https://masseyratings.com/cbase2024/ncaa-d3/ratings) and found the expected winning percentage of PP baseball against every team they have played and intend to play this season. A note here is that I chose the win percentage that was calculated off of the 2024 season. I chose this data because I did not want the data to be flawed due to the games that had already occurred this season. I wanted to evaluate what Massey Ratings expected to occur for the 2025 season (when Pomona Pitzer Baseball is at its very best). 
+
+Utilizing the win percentages I found on Massey Ratings and utilizing the Pomona Baseball schedule to extract who they played and how many times I created the following table. A quick note, the win percentage is the percentage chance that Pomona Pitzer will beat them. Again these numbers have changed since Pomona has done poorly compared to expectations this season. For example, at the end of 2024 PP baseball had a 55% chance of beating La Verne, currently Massey Ratings says La Verne has a 57% chance of beating Pomona, (This is an extreme example has La Verne has had an exceptional season so far). 
+```{r}
+# Create a multi-line string with your data
+raw_text <- "
+CMS 0.56 3
+La_Verne 0.55 3
+ETBU 0.53 3
+Occidental 0.85 3
+Cal_Lu 0.60 3
+Cal_Tech 0.95 3
+Whittier 0.84 4
+Lewis_and_Clark 0.71 3
+Pacific_Lutheran 0.73 2
+Chapman 0.60 3
+Redlands 0.74 3
+Williamette 0.60 1
+MIT 0.80 2
+UW_La_Crosse 0.54 1
+Tufts 0.65 3
+"
+
+# Read the data into a data frame
+schedule <- read.table(text = raw_text, header = FALSE, col.names = c("team", "win_prob", "games"))
+
+# View the resulting table
+print(schedule)
+
+```
+
+
 ```{r}
 set.seed(42)  # for reproducibility
 
