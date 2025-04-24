@@ -137,7 +137,7 @@ simulate_season <- function(schedule) {
   tibble(total_wins = total_wins)
 }
 
-# Run 100 simulations
+# Run 1000 simulations
 n_simulations <- 1000
 sim_results <- map_dfr(1:n_simulations, ~simulate_season(schedule))
 
