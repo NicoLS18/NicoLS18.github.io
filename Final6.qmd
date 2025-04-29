@@ -1,6 +1,11 @@
 ---
 title: "Final6"
-format: html
+execute: 
+  warning: false
+  message: false
+format:
+  html: 
+    code-fold: true
 ---
 ```{r}
 library(dplyr)
