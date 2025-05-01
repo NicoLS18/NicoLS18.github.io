@@ -282,9 +282,9 @@ ggplot(city_race_pct, aes(x = city, y = pct_total_stops, fill = race)) +
   theme_minimal()
 
 ```
-Oakland Demographics: 30.51% White, 21.09% Black, 19.61% other race, 17.21% Hispanic, 15.54% Asian
-San Francisco Demographics: 39.2%  white, 34.4%  Asian, 15.4%  Hispanic, 8.4% other race, 5.2%  Black
-San Jose Demographics: 33.2% Hispanic, 32.8% Asian, 27.6% White, 2.8% Black, 3.6 % other
+Oakland Demographics: 30.51% White, 21.09% Black, 19.61% other race, 17.21% Hispanic, 15.54% Asian <br>
+San Francisco Demographics: 39.2%  white, 34.4%  Asian, 15.4%  Hispanic, 8.4% other race, 5.2%  Black <br>
+San Jose Demographics: 33.2% Hispanic, 32.8% Asian, 27.6% White, 2.8% Black, 3.6 % other<br>
 
 
 
