@@ -1,5 +1,5 @@
 ---
-title: "SQL"
+title: "Different Policing Across the Bay Bridge?"
 execute: 
   warning: false
   message: false
@@ -29,7 +29,9 @@ con_traffic <- DBI::dbConnect(
 )
 dbplyr::src_dbi(con_traffic)
 ```
+As an Oakland native I have a very different understanding of the police than some of my peers. My understanding of the police in Oakland is that they are considerably overloaded so calling them for a crime that is not a current threat to someone's life is often postponed severely. For example, I have actively seen someone underneath a neighbors car cutting out their catalytic converter and there was no point in calling the police as they would have no interest in such a crime. Even when our car was stolen they took hours to file a report and found it four days later after it had been trashed and discarded. For these reasons I was particularly interested in the percentage of stops that turned into searches and arrests as my understanding would be that a majority of the time they are making stop because they believe they will be taking some amount of action. 
 
+So my first action was to calculate the percentage of the time that stops turned into a search and teh percentage of the time that a stop turned into arrest. This singular number for each was not especially interesting so I decided to see if there were any trends over time and created a scatterplot. This graph was created in intervals of four months because we only have data from 2013-2017. Towards the end we see a dramatic climb and I am very interested to know whether this climb continued. Note that the search rate gets up to nearly 40% in some periods and averages at 30% of the time. 
 
 
 ```{sql}
@@ -67,8 +69,64 @@ ggplot(oakland_rates, aes(x = period)) +
 
 ```
 
+I also wanted to include a secondary graph to illustrate that the number of stops overall is not correlated to these search and arrest rates which I found interesting. Yet with the normalization of the number of stops I felt it did not illustrate the percentages well which is why I have left both graphs. 
+
+```{r}
+oakland_rates <- oakland_rates |>
+  mutate(norm_total_stops = 100 * total_stops / max(total_stops))
+
+ggplot(oakland_rates, aes(x = period)) +
+  geom_point(aes(y = pct_search, color = "Search Rate"), size = 3) +
+  geom_line(aes(y = pct_search, color = "Search Rate"), group = 1) +
+  geom_point(aes(y = pct_arrest, color = "Arrest Rate"), size = 3) +
+  geom_line(aes(y = pct_arrest, color = "Arrest Rate"), group = 1) +
+  geom_point(aes(y = norm_total_stops, color = "Total Stops (Normalized)"), size = 3) +
+  geom_line(aes(y = norm_total_stops, color = "Total Stops (Normalized)"), group = 1) +
+  labs(
+    title = "Search, Arrest, and Total Stops in Oakland Traffic Stops (2013–2017)",
+    x = "Period (4-month intervals)",
+    y = "Percentage or Normalized Total",
+    color = "Metric"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
 
 
+
+Yet this information did not quite answer my question as a citation would also be warrant for action. So with some help I created a dataframe in which it counted whether any of the following had occurred on the traffic stop: citation, search, or arrest. As you can see in the table is only 65% which was honestly surprisingly low to me. There may be a different definition of what is considered a traffic stop and which stops are not included in this data but overall expected something higher. 
+
+```{sql}
+#| connection: con_traffic
+#| output.var: "citation/search"
+SELECT
+  COUNT(*) AS total_stops,
+  SUM(
+    CASE
+      WHEN arrest_made = TRUE OR search_conducted = TRUE OR citation_issued = TRUE THEN 1
+      ELSE 0
+    END
+  ) AS stops_with_action,
+  ROUND(100.0 * 
+    SUM(
+      CASE
+        WHEN arrest_made = TRUE OR search_conducted = TRUE OR citation_issued = TRUE THEN 1
+        ELSE 0
+      END
+  ) / COUNT(*), 2) AS pct_with_action
+FROM ca_oakland_2020_04_01
+WHERE date BETWEEN '2013-03-01' AND '2017-12-31'
+  AND arrest_made IS NOT NULL
+  AND search_conducted IS NOT NULL
+  AND citation_issued IS NOT NULL;
+```
+
+```{r}
+print(`citation/search`)
+```
+
+
+Then I realized this data of search and arrest percentages are baseless without some comparisons. So I chose to compare Oakland to two other Bay Area cities. This would generally help keep constant laws, general size of the cities and overall sentiment of the police force. I compared Oakland to San Francisco (a 10 minute drive across the Bay Bridge) and San Jose (a 45 minute drive south). 
 ```{sql}
 #| connection: con_traffic
 #| output.var: "city_rates"
@@ -117,8 +175,12 @@ WHERE search_conducted IS NOT NULL
 ```{r}
 print(city_rates)
 ```
+The sharp contrast between San Francisco and Oakland/San Jose was unbelievable to me. First thing to notice is San Francisco had nearly 3 times the number of stops as the others and this was after I accounted for the time periods and only included the overlapping years between all three. Yet despite having three times more total stops they had barely a third of the total searches and obviously a minimal search and arrest percentage. I was also surprised to see how similar San Jose's numbers were to Oakland. I do not know San Jose well but my general understanding was that they had some "bad" areas but not enough to keep up with Oakland's numbers. I am glad I made this comparison as I found it super interesting and it has left me with more questions to pursue about where these enormous differences stem from. Is it the system in each police force? Different laws? Less crime? 
 
 
+
+
+Lastly, it felt essential to take a look at race within the previous stats that I had already been looking at. Unfortunately, as it often shows, blacks and hispanics were consistently searched/arrested more often than white, asian and other in all three cities. So even in such diverse cities these biases and racism continues to persist in clear ways. 
 ```{sql}
 #| connection: con_traffic
 #| output.var: "city_race_rates"
@@ -201,6 +263,8 @@ ggplot(city_race_rates, aes(x = city, y = pct_arrest, fill = race)) +
 ```
 
 
+
+What was more unbelievable was the stats on the percentage of stops by race for each city. This was truly eye opening on how biased the law enforcement system can be. I included the demographics of all three cities below the the following bar graph to truly illustrate how far from proportional these stops are. An insane stat I found is that currently there are 90,000 african americans in oakland in 2023 (in 2015 I believe there was less which makes this crazier), in the three years in which we are analyzing data the Oakland Police stopped nearly 78,000 african americans. Of course there were repeats offenders but still the fact that it is possible that over 85% of african americans in the city were stopped is absurd. 
 ```{r}
 city_race_pct <- city_race_rates |>
   group_by(city) |>
@@ -218,9 +282,13 @@ ggplot(city_race_pct, aes(x = city, y = pct_total_stops, fill = race)) +
   theme_minimal()
 
 ```
+Oakland Demographics: 30.51% White, 21.09% Black, 19.61% other race, 17.21% Hispanic, 15.54% Asian
+San Francisco Demographics: 39.2%  white, 34.4%  Asian, 15.4%  Hispanic, 8.4% other race, 5.2%  Black
+San Jose Demographics: 33.2% Hispanic, 32.8% Asian, 27.6% White, 2.8% Black, 3.6 % other
 
 
 
+This was truly an enlightening experience for me as I assumed there was still issues within Oakland's system but I assumed they would be lesser because of the enormous diversity. Unfortunately that is not the case.  
 
 ```{r}
 dbDisconnect(con_traffic)
@@ -228,7 +296,9 @@ dbDisconnect(con_traffic)
 
 
 
+Data base from: 
 
+Pierson, Emma, Camelia Simoiu, Jan Overgoor, Sam Corbett-Davies, Daniel Jenson, Amy Shoemaker, Vignesh Ramachandran, et al. 2020. “A Large-Scale Analysis of Racial Disparities in Police Stops Across the United States.” Nature Human Behaviour, 1–10.
 
 
 
