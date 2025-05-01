@@ -1,0 +1,236 @@
+---
+title: "SQL"
+execute: 
+  warning: false
+  message: false
+format:
+  html: 
+    code-fold: true
+---
+
+```{r setup, include=FALSE}
+library(DBI)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+con_traffic <- DBI::dbConnect(
+
+  RMariaDB::MariaDB(),
+
+  dbname = "traffic",
+
+  host = Sys.getenv("TRAFFIC_HOST"),
+
+  user = Sys.getenv("TRAFFIC_USER"),
+
+  password = Sys.getenv("TRAFFIC_PWD")
+
+)
+dbplyr::src_dbi(con_traffic)
+```
+
+
+
+```{sql}
+#| connection: con_traffic
+#| output.var: "oakland_rates"
+SELECT
+  CONCAT(YEAR(date), '-', LPAD(FLOOR((MONTH(date)-1)/4)*4 + 1, 2, '0')) AS period,
+  COUNT(*) AS total_stops,
+  SUM(search_conducted = TRUE) AS searches,
+  SUM(arrest_made = TRUE) AS arrests,
+  ROUND(100.0 * SUM(search_conducted = TRUE) / COUNT(*), 2) AS pct_search,
+  ROUND(100.0 * SUM(arrest_made = TRUE) / COUNT(*), 2) AS pct_arrest
+FROM ca_oakland_2020_04_01
+WHERE date BETWEEN '2013-03-01' AND '2017-12-31'
+  AND search_conducted IS NOT NULL
+  AND arrest_made IS NOT NULL
+GROUP BY period
+ORDER BY period
+```
+
+```{r}
+ggplot(oakland_rates, aes(x = period)) +
+  geom_point(aes(y = pct_search, color = "Search Rate"), size = 3) +
+  geom_line(aes(y = pct_search, color = "Search Rate"), group = 1) +
+  geom_point(aes(y = pct_arrest, color = "Arrest Rate"), size = 3) +
+  geom_line(aes(y = pct_arrest, color = "Arrest Rate"), group = 1) +
+  labs(
+    title = "Search and Arrest Rates in Oakland Traffic Stops (2013–2017)",
+    x = "Period (4-month intervals)",
+    y = "Percentage (%)",
+    color = "Metric"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
+
+```{sql}
+#| connection: con_traffic
+#| output.var: "city_rates"
+SELECT
+  'Oakland' AS city,
+  COUNT(*) AS total_stops,
+  SUM(search_conducted = TRUE) AS searches,
+  SUM(arrest_made = TRUE) AS arrests,
+  ROUND(100.0 * SUM(search_conducted = TRUE) / COUNT(*), 2) AS pct_search,
+  ROUND(100.0 * SUM(arrest_made = TRUE) / COUNT(*), 2) AS pct_arrest
+FROM ca_oakland_2020_04_01
+WHERE search_conducted IS NOT NULL 
+  AND arrest_made IS NOT NULL
+  AND date BETWEEN '2013-01-01' AND '2016-12-31'
+
+UNION ALL
+
+SELECT
+  'San Francisco' AS city,
+  COUNT(*) AS total_stops,
+  SUM(search_conducted = TRUE) AS searches,
+  SUM(arrest_made = TRUE) AS arrests,
+  ROUND(100.0 * SUM(search_conducted = TRUE) / COUNT(*), 2) AS pct_search,
+  ROUND(100.0 * SUM(arrest_made = TRUE) / COUNT(*), 2) AS pct_arrest
+FROM ca_san_francisco_2020_04_01
+WHERE search_conducted IS NOT NULL 
+  AND arrest_made IS NOT NULL
+  AND date BETWEEN '2013-01-01' AND '2016-12-31'
+
+UNION ALL
+
+SELECT
+  'San Jose' AS city,
+  COUNT(*) AS total_stops,
+  SUM(search_conducted = TRUE) AS searches,
+  SUM(arrest_made = TRUE) AS arrests,
+  ROUND(100.0 * SUM(search_conducted = TRUE) / COUNT(*), 2) AS pct_search,
+  ROUND(100.0 * SUM(arrest_made = TRUE) / COUNT(*), 2) AS pct_arrest
+FROM ca_san_jose_2020_04_01
+WHERE search_conducted IS NOT NULL 
+  AND arrest_made IS NOT NULL
+  AND date BETWEEN '2013-01-01' AND '2016-12-31'
+
+```
+
+```{r}
+print(city_rates)
+```
+
+
+```{sql}
+#| connection: con_traffic
+#| output.var: "city_race_rates"
+SELECT
+  'Oakland' AS city,
+  subject_race AS race,
+  COUNT(*) AS total_stops,
+  SUM(search_conducted = TRUE) AS searches,
+  SUM(arrest_made = TRUE) AS arrests,
+  ROUND(100.0 * SUM(search_conducted = TRUE) / COUNT(*), 2) AS pct_search,
+  ROUND(100.0 * SUM(arrest_made = TRUE) / COUNT(*), 2) AS pct_arrest
+FROM ca_oakland_2020_04_01
+WHERE date BETWEEN '2013-03-01' AND '2017-12-31'
+  AND search_conducted IS NOT NULL
+  AND arrest_made IS NOT NULL
+  AND subject_race IS NOT NULL
+GROUP BY race
+
+UNION ALL
+
+SELECT
+  'San Francisco' AS city,
+  subject_race AS race,
+  COUNT(*) AS total_stops,
+  SUM(search_conducted = TRUE) AS searches,
+  SUM(arrest_made = TRUE) AS arrests,
+  ROUND(100.0 * SUM(search_conducted = TRUE) / COUNT(*), 2) AS pct_search,
+  ROUND(100.0 * SUM(arrest_made = TRUE) / COUNT(*), 2) AS pct_arrest
+FROM ca_san_francisco_2020_04_01
+WHERE date BETWEEN '2013-03-01' AND '2017-12-31'
+  AND search_conducted IS NOT NULL
+  AND arrest_made IS NOT NULL
+  AND subject_race IS NOT NULL
+GROUP BY race
+
+
+UNION ALL
+
+SELECT
+  'San Jose' AS city,
+  subject_race AS race,
+  COUNT(*) AS total_stops,
+  SUM(search_conducted = TRUE) AS searches,
+  SUM(arrest_made = TRUE) AS arrests,
+  ROUND(100.0 * SUM(search_conducted = TRUE) / COUNT(*), 2) AS pct_search,
+  ROUND(100.0 * SUM(arrest_made = TRUE) / COUNT(*), 2) AS pct_arrest
+FROM ca_san_jose_2020_04_01
+WHERE date BETWEEN '2013-03-01' AND '2017-12-31'
+  AND search_conducted IS NOT NULL
+  AND arrest_made IS NOT NULL
+  AND subject_race IS NOT NULL
+GROUP BY race
+```
+
+```{r}
+ggplot(city_race_rates, aes(x = city, y = pct_search, fill = race)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Search Rate by Race (2013–2017)",
+    x = "City",
+    y = "Search Rate (%)",
+    fill = "Race"
+  ) +
+  theme_minimal()
+
+```
+
+
+```{r}
+ggplot(city_race_rates, aes(x = city, y = pct_arrest, fill = race)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Arrest Rate by Race (2013–2017)",
+    x = "City",
+    y = "Arrest Rate (%)",
+    fill = "Race"
+  ) +
+  theme_minimal()
+
+```
+
+
+```{r}
+city_race_pct <- city_race_rates |>
+  group_by(city) |>
+  mutate(pct_total_stops = 100 * total_stops / sum(total_stops))
+
+# Create the grouped bar chart
+ggplot(city_race_pct, aes(x = city, y = pct_total_stops, fill = race)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Percentage of Stops by Race per City (2013–2017)",
+    x = "city",
+    y = "Percent of Total Stops",
+    fill = "race"
+  ) +
+  theme_minimal()
+
+```
+
+
+
+
+```{r}
+dbDisconnect(con_traffic)
+```
+
+
+
+
+
+
+
+
+
