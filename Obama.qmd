@@ -9,6 +9,7 @@ format:
 ---
 
 ```{r}
+#libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -29,7 +30,7 @@ This analysis focuses primarily on the text column, which contains the actual co
 
 
 obamaa <- readr::read_csv('tweets.csv')
-print(obamaa)
+head(obamaa)
 
 ```
 
