@@ -28,13 +28,14 @@ This analysis focuses primarily on the text column, which contains the actual co
 
 ```{r}
 
-
+#reading in data
 obamaa <- readr::read_csv('tweets.csv')
 head(obamaa)
 
 ```
 
 ```{r}
+#cleaning the data for analysis
 cleanobama <- obamaa |>
   mutate(text = str_to_lower(text),
          text = str_replace_all(text, "http[[:alnum:][:punct:]]*", ""),  
@@ -42,17 +43,17 @@ cleanobama <- obamaa |>
          text = str_replace_all(text, "—@POTUS.*", ""),
          text= str_replace_all(text, "\n", "")) 
 
-
+#what moves to remove from the analysis
 stopwords <- c("the", "and", "to", "of", "in", "a", "on", "for", "with", "is", "that","s", "at", "potus", "  ", "rt", "amp", "it","this", "are","→")
 
-
+#filtering out stopwords and counting the words
 word_counts <- cleanobama |>
   mutate(words = str_split(text, "\\s+")) |>  
   unnest(words) |>  
   filter(words != "", !words %in% stopwords) |>  
   count(words, sort = TRUE)  
 
-
+#creating the graph 
 word_counts |>
   slice_max(n, n = 10) |> 
   ggplot(aes(x = reorder(words, n), y = n)) +
@@ -67,10 +68,7 @@ word_counts |>
 This graph illustrates which words Obama used most throughout his presidency in his tweets while not including "the", "and", "to", "of", "in", "a", "on", "for", "with", "is", "that","s", "at", "potus", "rt", "amp", "it","this", "are" and "→". This graph is not especially helpful as the most used words are not very descriptive of what is going on in the tweets. What we can learn is that many of his tweets are about current news as he utilizes "today" heavily and they tend to be directed to a specific audience. By utilizing "we" and "our" it illustrates that Obama is not just sharing opinions but directing messages to the general public. I do not have a clear explanation why Obama and president are utilized so heavily although I assume that Obama tended to share quotes from himself or articles written which therefore would cite him.
 
 ```{r}
-
-
-
-
+#words to focus on 
 policy_keywords <- c("healthcare", "education", "climate", "economy", 
                      "jobs", "tax", "immigration", "gun", "poverty")
 
@@ -114,7 +112,7 @@ obamatime <- obamaa |>
   
   mutate(time = str_replace_all(time, "[^0-9:]", "")) |>  
   
-  # Parse time into an HMS object and create hour and time_chunk columns
+  # Turn time into an HMS object and create hour and time_chunk columns
   mutate(tlsime = hms(time),  
          hour_of_day = hour(tlsime),  
          time_chunk = cut(hour_of_day, breaks = seq(0, 24, by = 4), 
@@ -129,7 +127,7 @@ obamatime <- obamaa |>
 tweetsbytime <- obamatime |>
   count(time_chunk)  
 
-
+#graph
 tweetsbytime |>
   ggplot(aes(x = time_chunk, y = n)) +
   geom_col(fill = "steelblue") +
@@ -142,6 +140,7 @@ tweetsbytime |>
 I then began to work with the timestamp column of the table, first searching for any trends within the time of day in which he would post. I assumed late afternoon as he finished up the structured work day and moved into the later hours of the day in which he may have more freedom to catch up on twitter. This in turn would increase the likelihood that he would see something to repost or share thoughts on issues he had worked with that day. This hypothesis was shown to be correct although I was surprised to see a much larger portion of late night tweets than mid-late morning tweets.
 
 ```{r}
+#convert to time format
 obamatime <- obamatime |>
   mutate(date = as.Date(date)) 
 
@@ -150,7 +149,7 @@ tweetsbymonth <- obamatime |>
   mutate(month_year = format(date, "%Y-%m")) |>  
   count(month_year)  
 
-
+#graph
 tweetsbymonth |>
   ggplot(aes(x = month_year, y = n)) +
   geom_col(fill = "steelblue") +
@@ -163,11 +162,12 @@ tweetsbymonth |>
 I was then interested if there were specific times of the year which brought upon extra tweeting from Obama but accidentally did not group by month so I had this messy graph. I was going to delete it but I found this trend quite interesting that the longer he was in office the more tweets he was sending out so I left this even though the x-axis is unclear. That jumble of numbers is the year followed by the month. For example 2012-02.
 
 ```{r}
+#convert to time format
 tweetsbymonth <- obamatime |>
   mutate(month = format(date, "%m")) |>
   count(month)  
 
-
+#graph
 tweetsbymonth |>
   ggplot(aes(x = month, y = n)) +
   geom_col(fill = "steelblue") +
