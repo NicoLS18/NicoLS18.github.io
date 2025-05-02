@@ -1,0 +1,26 @@
+---
+title: "Changes to my Website"
+author: "Nicolas Laub-Sabater"
+subtitle: "05/08/2025"
+format:
+  revealjs:
+    scrollable: true
+    slide-number: true
+    show-slide-number: all
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## **Overall Changes I Made to my Website**
+
+- Substantially improved my citations  
+- Added notes within my code to make it clearer  
+
+
+
+## **Creating a new Simulation**
+- Initially created a simulation about my odds to receive a single. 
+  
