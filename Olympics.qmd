@@ -1,9 +1,11 @@
 ---
 title: "Olympics"
-format: html
 execute: 
   warning: false
   message: false
+format:
+  html: 
+    code-fold: true
 ---
 
 This is a historical dataset on the modern Olympic Games, including all the Games from Athens 1896 to Rio 2016. I scraped this data from [www.sports-reference.com](http://www.sports-reference.com/) in May 2018. It includes categories such as team, sport, height and weight. I have decided to take a look at the physical aspects of these athletes to see if there are any differences depending on where they come from around the globe.
@@ -21,7 +23,7 @@ library(tidyverse)
 
 ```
 
-```{r, echo=FALSE}
+```{r}
 
 
 

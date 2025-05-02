@@ -1,9 +1,11 @@
 ---
 title: "GPT Detectors"
-format: html
 execute: 
   warning: false
   message: false
+format:
+  html: 
+    code-fold: true
 ---
 
 This data was collected in an experiment to track how effective AI detectors were at truly capturing AI created work and whether non-native english speakers were at a higher likelihood to be flagged as AI. I chose to focus solely on the effectiveness of the AI detectors as I have always assumed that they are quite good at distinguishing work that is done 100% by a human vs an AI.
@@ -22,7 +24,7 @@ detectors <- tuesdata$detectors
 
 ```
 
-```{r, echo=FALSE}
+```{r}
 
 
 df<- detectors

@@ -198,6 +198,6 @@ ggplot(sim_results, aes(x = total_wins)) +
   theme_minimal()
 
 ```
-The red line represents the number of wins they had this season
+The red line represents the number of wins they had this season.
 
 
