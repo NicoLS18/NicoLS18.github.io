@@ -6,7 +6,7 @@ execute:
   message: false
 ---
 
-"This is a historical dataset on the modern Olympic Games, including all the Games from Athens 1896 to Rio 2016. I scraped this data from [www.sports-reference.com](http://www.sports-reference.com/) in May 2018." It includes categories such as team, sport, height and weight. I have decided to take a look at the physical aspects of these athletes to see if there are any differences depending on where they come from around the globe.
+This is a historical dataset on the modern Olympic Games, including all the Games from Athens 1896 to Rio 2016. I scraped this data from [www.sports-reference.com](http://www.sports-reference.com/) in May 2018. It includes categories such as team, sport, height and weight. I have decided to take a look at the physical aspects of these athletes to see if there are any differences depending on where they come from around the globe.
 
 ```{r, echo=FALSE}
 olympics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-08-06/olympics.csv')
