@@ -109,6 +109,20 @@
     "href": "Presentation.html#creating-a-new-simulation",
     "title": "Changes to my Website",
     "section": "Creating a new Simulation",
-    "text": "Creating a new Simulation\n\nInitially created a simulation about my odds to receive a single."
+    "text": "Creating a new Simulation\n\nInitially created a simulation about my odds to receive a single.\n\nInsufficient information and an overload of variables hindered simulation value\nAdditionally overall lack of clarity throughout project\n\nInstead I chose to get a better understanding of the Pomona Baseball teams success"
+  },
+  {
+    "objectID": "Presentation.html#leading-question",
+    "href": "Presentation.html#leading-question",
+    "title": "Changes to my Website",
+    "section": "Leading Question",
+    "text": "Leading Question\n\nIs Pomona truly underperforming the year after a historic run?\n\n2022 historic run to regionals\n2023 poor season and missed SCIAC playoffs\n2024 greatest run in history to NCAA World Series in Cleveland\n2025 sentiments of a let down season (although ended up finishing strong)"
+  },
+  {
+    "objectID": "Presentation.html#collecting-the-data",
+    "href": "Presentation.html#collecting-the-data",
+    "title": "Changes to my Website",
+    "section": "Collecting the Data",
+    "text": "Collecting the Data\n\nUtilized Massey Ratings to collect winning percentages https://masseyratings.com/cbase2024/ncaa-d3/ratings\n\n\n\n# A tibble: 14 × 5\n   team             win_prob games  wins losses\n   &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;\n 1 CMS                  0.56     3     1      2\n 2 La Verne             0.55     4     1      3\n 3 ETBU                 0.53     3     1      2\n 4 Occidental           0.85     3     2      1\n 5 Cal Lu               0.6      3     2      1\n 6 Cal Tech             0.95     3     2      1\n 7 Whittier             0.84     4     2      2\n 8 Lewis and Clark      0.71     3     2      1\n 9 Pacific Lutheran     0.73     2     1      1\n10 Chapman              0.6      3     1      2\n11 Redlands             0.74     3     2      1\n12 MIT                  0.8      2     1      1\n13 UW La Crosse         0.54     1     1      0\n14 Tufts                0.65     3     2      1"
   }
 ]

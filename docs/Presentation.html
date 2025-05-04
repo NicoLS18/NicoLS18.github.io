@@ -1012,8 +1012,52 @@ Nicolas Laub-Sabater
 <section id="creating-a-new-simulation" class="slide level2">
 <h2><strong>Creating a new Simulation</strong></h2>
 <ul>
-<li>Initially created a simulation about my odds to receive a single.</li>
+<li>Initially created a simulation about my odds to receive a single.
+<ul>
+<li>Insufficient information and an overload of variables hindered simulation value</li>
+<li>Additionally overall lack of clarity throughout project</li>
+</ul></li>
+<li>Instead I chose to get a better understanding of the Pomona Baseball teams success</li>
 </ul>
+</section>
+<section id="leading-question" class="slide level2">
+<h2><strong>Leading Question</strong></h2>
+<ul>
+<li>Is Pomona truly underperforming the year after a historic run?
+<ul>
+<li>2022 historic run to regionals</li>
+<li>2023 poor season and missed SCIAC playoffs</li>
+<li>2024 greatest run in history to NCAA World Series in Cleveland</li>
+<li>2025 sentiments of a let down season (although ended up finishing strong)</li>
+</ul></li>
+</ul>
+</section>
+<section id="collecting-the-data" class="slide level2">
+<h2><strong>Collecting the Data</strong></h2>
+<ul>
+<li>Utilized Massey Ratings to collect winning percentages https://masseyratings.com/cbase2024/ncaa-d3/ratings</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 5
+   team             win_prob games  wins losses
+   &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;
+ 1 CMS                  0.56     3     1      2
+ 2 La Verne             0.55     4     1      3
+ 3 ETBU                 0.53     3     1      2
+ 4 Occidental           0.85     3     2      1
+ 5 Cal Lu               0.6      3     2      1
+ 6 Cal Tech             0.95     3     2      1
+ 7 Whittier             0.84     4     2      2
+ 8 Lewis and Clark      0.71     3     2      1
+ 9 Pacific Lutheran     0.73     2     1      1
+10 Chapman              0.6      3     1      2
+11 Redlands             0.74     3     2      1
+12 MIT                  0.8      2     1      1
+13 UW La Crosse         0.54     1     1      0
+14 Tufts                0.65     3     2      1</code></pre>
+</div>
+</div>
 
 
 </section>
@@ -2179,6 +2223,44 @@ window.QuartoSupport = function () {
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
