@@ -1,5 +1,6 @@
 ---
 title: "Different Policing Across the Bay Bridge?"
+author: "Nicolas Laub-Sabater"
 execute: 
   warning: false
   message: false

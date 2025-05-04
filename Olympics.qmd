@@ -1,5 +1,6 @@
 ---
 title: "Olympics"
+author: "Nicolas Laub-Sabater"
 execute: 
   warning: false
   message: false

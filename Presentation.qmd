@@ -17,7 +17,9 @@ execute:
 ## **Overall Changes I Made to my Website**
 
 - Substantially improved my citations  
-- Added notes within my code to make it clearer  
+- Added notes within my code to make it clearer
+- Added code folding to all projects and overall cleaned up the presentation
+- Adjusted introductions so they had a professional tone and appearance
 
 
 

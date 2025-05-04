@@ -1,5 +1,6 @@
 ---
 title: "PP Baseball Off Year or Regression to the Mean?"
+author: "Nicolas Laub-Sabater"
 execute: 
   warning: false
   message: false
