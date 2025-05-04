@@ -7,10 +7,12 @@ format:
   html: 
     code-fold: true
 ---
-```{r}
+```{r, echo=FALSE}
 library(dplyr)
 library(purrr)
 library(ggplot2)
+library(shiny)
+library(tibble)
 ```
 
 
@@ -18,7 +20,7 @@ The baseball team had a record year last year, reaching the finals in Cleveland,
 
 This was the question I set out to answer. Instead of scraping past season data I chose to utilize current stats that stated the win percentage of Pomona Pitzer vs their opponents. To do this I went into massey ratings (https://masseyratings.com/cbase2024/ncaa-d3/ratings) and found the expected winning percentage of PP baseball against every team they have played and intend to play this season. A note here is that I chose the win percentage that was calculated off of the 2024 season. I chose this data because I did not want the data to be flawed due to the games that had already occurred this season. I wanted to evaluate what Massey Ratings expected to occur for the 2025 season (when Pomona Pitzer Baseball is at its very best). 
 
-Utilizing the win percentages I found on Massey Ratings and utilizing the Pomona Baseball schedule to extract who they played and how many times I created the following table. A quick note, the win percentage is the percentage chance that Pomona Pitzer will beat them. Again these numbers have changed since Pomona has done poorly compared to expectations this season. For example, at the end of 2024 PP baseball had a 55% chance of beating La Verne, currently Massey Ratings says La Verne has a 57% chance of beating Pomona, (This is an extreme example has La Verne has had an exceptional season so far). 
+Utilizing the win percentages I found on Massey Ratings and utilizing the Pomona Baseball schedule to extract who they played and how many times I created the following table. A quick note, the win percentage is the percentage chance that Pomona Pitzer will beat them. Again these numbers have changed since Pomona has done poorly compared to expectations this season. For example, at the end of 2024 PP baseball had a 55% chance of beating La Verne, currently Massey Ratings says La Verne has a 57% chance of beating Pomona, (This is an extreme example as La Verne has had an exceptional season so far). 
 ```{r}
 # Create a multi-line string with your data
 raw_text <- "
@@ -150,12 +152,15 @@ print(summary_stats)
 
 ```
 
+The following graph is a presentation of all 1000 simulations and I made it shiny so that you can interact with it and understand percentage wise how a 27 win year such as this one is an expected year and not a poor showing. These calculations are also inflated as the win percentages were gathered off of the end of a historic PP season. 
+
+
 ```{r}
 
 
-set.seed(42)  # for reproducibility
+# Prepare simulation data once
+set.seed(42)
 
-# Schedule data
 schedule <- data.frame(
   team = c("CMS", "La Verne", "ETBU", "Occidental", "Cal Lu", "Cal Tech", "Whittier",
            "Lewis and Clark", "Pacific Lutheran", "Chapman", "Redlands", 
@@ -168,7 +173,6 @@ schedule <- data.frame(
             2, 1, 3)
 )
 
-# Simulation function
 simulate_season <- function(schedule) {
   results <- schedule |>
     rowwise() |>
@@ -182,22 +186,52 @@ simulate_season <- function(schedule) {
   tibble(total_wins = total_wins)
 }
 
-# Run 1000 simulations
 n_simulations <- 1000
 sim_results <- map_dfr(1:n_simulations, ~simulate_season(schedule))
 
-# Create a bar plot of total wins
-ggplot(sim_results, aes(x = total_wins)) +
-  geom_bar(fill = "steelblue", color = "black") +
-    geom_vline(xintercept = 27, color = "red", linetype = "dashed", size = 1)+ 
-  labs(
-    title = "Distribution of Total Wins Over 1000 Simulated Seasons",
-    x = "Total Wins",
-    y = "Frequency"
-  ) +
-  theme_minimal()
+# UI
+ui <- fluidPage(
+  titlePanel("Simulated Win Distribution"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("win_thresh", "Minimum Wins:",
+                  min = min(sim_results$total_wins),
+                  max = max(sim_results$total_wins),
+                  value = 27,
+                  step = 1)
+    ),
+    mainPanel(
+      textOutput("percent_text"),
+      plotOutput("win_plot")
+    )
+  )
+)
+
+# Server
+server <- function(input, output) {
+  
+  output$percent_text <- renderText({
+    pct <- mean(sim_results$total_wins <= input$win_thresh) * 100
+    paste0("Percentage of seasons with ", input$win_thresh, " wins or worse: ", round(pct, 2), "%")
+  })
+  
+  output$win_plot <- renderPlot({
+    ggplot(sim_results, aes(x = total_wins)) +
+      geom_bar(fill = "steelblue", color = "black") +
+      geom_vline(xintercept = input$win_thresh, color = "red", linetype = "dashed", size = 1) +
+      labs(
+        title = "Distribution of Total Wins Over 1000 Simulated Seasons",
+        x = "Total Wins",
+        y = "Frequency"
+      ) +
+      theme_minimal()
+  })
+}
+
+# Run app
+shinyApp(ui = ui, server = server)
 
 ```
-The red line represents the number of wins they had this season.
+
 
 
