@@ -1,7 +1,12 @@
-```{r}
 
 
-# Prepare simulation data once
+
+library(dplyr)
+library(purrr)
+library(ggplot2)
+library(shiny)
+library(tibble)
+
 set.seed(42)
 
 schedule <- data.frame(
@@ -73,5 +78,3 @@ server <- function(input, output) {
 
 # Run app
 shinyApp(ui = ui, server = server)
-
-```

@@ -148,8 +148,13 @@ print(summary_stats)
 
 ## **Graphical Presentation**
 
-- Created an interactive to bar graph in order to modify number of wins 
+- Created a shiny bar graph in order to modify number of wins 
+
+https://nicols18.shinyapps.io/simulation/
 
 
+<iframe src="https://nicols18.shinyapps.io/simulation/" 
+        width="100%" height="600px" frameborder="0">
+</iframe>
 
 

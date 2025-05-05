@@ -144,6 +144,6 @@
     "href": "Presentation.html#graphical-presentation",
     "title": "Changes to my Website",
     "section": "Graphical Presentation",
-    "text": "Graphical Presentation\n\nCreated an interactive to bar graph in order to modify number of wins"
+    "text": "Graphical Presentation\n\nCreated a shiny bar graph in order to modify number of wins\n\nhttps://nicols18.shinyapps.io/simulation/"
   }
 ]
