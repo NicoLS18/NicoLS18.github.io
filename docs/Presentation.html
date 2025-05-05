@@ -1032,8 +1032,8 @@ Nicolas Laub-Sabater
 </ul></li>
 </ul>
 </section>
-<section id="collecting-the-data" class="slide level2">
-<h2><strong>Collecting the Data</strong></h2>
+<section id="collecting-the-data-and-simulating-the-season" class="slide level2">
+<h2><strong>Collecting the Data and Simulating the Season</strong></h2>
 <ul>
 <li>Utilized Massey Ratings to collect winning percentages https://masseyratings.com/cbase2024/ncaa-d3/ratings</li>
 </ul>
@@ -1058,6 +1058,26 @@ Nicolas Laub-Sabater
 14 Tufts                0.65     3     2      1</code></pre>
 </div>
 </div>
+</section>
+<section id="results-of-1000-simulations" class="slide level2">
+<h2><strong>Results of 1,000 Simulations</strong></h2>
+<ul>
+<li>After mapping the simulation 1,000 times I found the following basic stats:</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  avg_wins sd_wins median_wins max_wins min_wins
+     &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;
+1     27.7    2.78          28       36       19</code></pre>
+</div>
+</div>
+</section>
+<section id="graphical-presentation" class="slide level2">
+<h2><strong>Graphical Presentation</strong></h2>
+<ul>
+<li>Created an interactive to bar graph in order to modify number of wins</li>
+</ul>
 
 
 </section>

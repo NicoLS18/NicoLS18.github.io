@@ -1,5 +1,6 @@
 ---
 title: "Obama"
+author: "Nicolas Laub-Sabater"
 execute: 
   warning: false
   message: false
