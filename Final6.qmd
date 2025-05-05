@@ -235,4 +235,55 @@ shinyApp(ui = ui, server = server)
 ```
 
 
+```{r}
+
+set.seed(42)  # for reproducibility
+
+# Updated schedule data
+schedule <- data.frame(
+  team = c("CMS", "La Verne", "ETBU", "Occidental", "Cal Lu", "Cal Tech", "Whittier",
+           "Lewis and Clark", "Pacific Lutheran", "Chapman", "Redlands", 
+           "MIT", "UW La Crosse", "Tufts"),
+  win_prob = c(0.49, 0.43, 0.51, 0.84, 0.58, 0.93, 0.77,
+               0.64, 0.68, 0.72, 0.64, 
+               0.75, 0.48, 0.71),
+  games = c(3, 4, 3, 3, 3, 3, 4,
+            3, 2, 3, 3,
+            2, 1, 3)
+)
+
+# Simulation function
+simulate_season <- function(schedule) {
+  results <- schedule |>
+    rowwise() |>
+    mutate(
+      wins = sum(runif(games) < win_prob),
+      losses = games - wins
+    ) |>
+    ungroup()
+  
+  total_wins <- sum(results$wins)
+  total_losses <- sum(results$losses)
+  
+  tibble(total_wins = total_wins, total_losses = total_losses)
+}
+
+# Run the simulation 1000 times
+n_simulations <- 1000
+sim_results <- map_dfr(1:n_simulations, ~simulate_season(schedule))
+
+# Summary statistics
+summary_stats <- sim_results |>
+  summarise(
+    avg_wins = mean(total_wins),
+    sd_wins = sd(total_wins),
+    median_wins = median(total_wins),
+    max_wins = max(total_wins),
+    min_wins = min(total_wins)
+  )
+
+# Print the summary
+print(summary_stats)
+
+```
 
