@@ -97,7 +97,7 @@ print(season$results)
 
 set.seed(42)  # for reproducibility
 
-# Your original schedule
+#  original schedule
 schedule <- data.frame(
   team = c("CMS", "La Verne", "ETBU", "Occidental", "Cal Lu", "Cal Tech", "Whittier",
            "Lewis and Clark", "Pacific Lutheran", "Chapman", "Redlands", 
@@ -110,7 +110,7 @@ schedule <- data.frame(
             2, 1, 3)
 )
 
-# Your simulation function
+# simulation function
 simulate_season <- function(schedule) {
   results <- schedule |>
     rowwise() |>
@@ -126,7 +126,7 @@ simulate_season <- function(schedule) {
   tibble(total_wins = total_wins, total_losses = total_losses)
 }
 
-# Run the simulation 1000 times
+# Run simulation 1000 times
 n_simulations <- 1000
 sim_results <- map_dfr(1:n_simulations, ~simulate_season(schedule))
 
@@ -140,7 +140,7 @@ summary_stats <- sim_results |>
     min_wins = min(total_wins)
   )
 
-# Print results
+
 print(summary_stats)
 
 ```
@@ -148,7 +148,7 @@ print(summary_stats)
 
 ## **Graphical Presentation**
 
-- Created a shiny bar graph in order to modify number of wins 
+- Created a shiny bar graph 
 
 https://nicols18.shinyapps.io/simulation/
 
@@ -157,4 +157,4 @@ https://nicols18.shinyapps.io/simulation/
         width="100%" height="600px" frameborder="0">
 </iframe>
 
-
+## **Conclusions**
