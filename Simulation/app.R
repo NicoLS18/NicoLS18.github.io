@@ -59,8 +59,8 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   output$percent_text <- renderText({
-    pct <- mean(sim_results$total_wins <= input$win_thresh) * 100
-    paste0("Percentage of seasons with ", input$win_thresh, " wins or worse: ", round(pct, 2), "%")
+    pct <- mean(sim_results$total_wins >= input$win_thresh) * 100
+    paste0("Percentage of seasons with a better record than ", input$win_thresh, " wins: ", round(pct, 2), "%")
   })
   
   output$win_plot <- renderPlot({

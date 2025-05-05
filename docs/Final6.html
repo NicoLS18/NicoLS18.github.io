@@ -213,12 +213,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>The baseball team had a record year last year, reaching the finals in Cleveland, Ohio which is two rounds further than they had ever reached in program history. Yet this year the team spirit is that this season has been let down, beginning as a #5 seed in preseason ratings and have since dropped out of the top 35 nationally. This pattern repeats one seen only 3 years prior when the team had a phenomenal year and made a real push into the playoffs and then the following year was a disappointment as their win percentage dropped over 200 points and they secured 10 fewer wins. So the question then becomes are these “poor” seasons truly below average seasons? Or are these outstanding years the true outliers and the year following is purely regression towards the mean?</p>
-<p>This was the question I set out to answer. Instead of scraping past season data I chose to utilize current stats that stated the win percentage of Pomona Pitzer vs their opponents. To do this I went into massey ratings (https://masseyratings.com/cbase2024/ncaa-d3/ratings) and found the expected winning percentage of PP baseball against every team they have played and intend to play this season. A note here is that I chose the win percentage that was calculated off of the 2024 season. I chose this data because I did not want the data to be flawed due to the games that had already occurred this season. I wanted to evaluate what Massey Ratings expected to occur for the 2025 season (when Pomona Pitzer Baseball is at its very best).</p>
-<p>Utilizing the win percentages I found on Massey Ratings and utilizing the Pomona Baseball schedule to extract who they played and how many times I created the following table. A quick note, the win percentage is the percentage chance that Pomona Pitzer will beat them. Again these numbers have changed since Pomona has done poorly compared to expectations this season. For example, at the end of 2024 PP baseball had a 55% chance of beating La Verne, currently Massey Ratings says La Verne has a 57% chance of beating Pomona, (This is an extreme example as La Verne has had an exceptional season so far).</p>
+<p>This was the question I set out to answer. Instead of scraping past season data I chose to utilize current stats that stated the win percentage of Pomona Pitzer vs their opponents. To do this I went into massey ratings (https://masseyratings.com/cbase2024/ncaa-d3/ratings) and found the expected winning percentage of PP baseball against every team they have played and intend to play this season. A note here is that I chose the win percentage that was calculated off of the 2024 season. I chose this data because I did not want the data to be flawed due to the games that had already occurred this season. I wanted to evaluate what Massey Ratings expected to occur for the 2025 season (when Pomona Pitzer Baseball was at its very best).</p>
+<p>Utilizing the win percentages I found on Massey Ratings and utilizing the Pomona Baseball schedule to extract who they played and how many times, I created the following table. A quick note, the win percentage is the percentage chance that Pomona Pitzer will beat them. Again these numbers have changed since Pomona has done poorly compared to expectations this season. For example, at the end of 2024 PP baseball had a 55% chance of beating La Verne, currently Massey Ratings says La Verne has a 57% chance of beating Pomona, (This is an extreme example as La Verne has had an exceptional season so far).</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a multi-line string with your data</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create multi-line string with  data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>raw_text <span class="ot">&lt;-</span> <span class="st">"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">CMS 0.56 3</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">La_Verne 0.55 4</span></span>
@@ -240,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data into a data frame</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>schedule <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">text =</span> raw_text, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"team"</span>, <span class="st">"win_prob"</span>, <span class="st">"games"</span>))</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># View the resulting table</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(schedule)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
@@ -268,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)  <span class="co"># for reproducibility</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with your schedule</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with schedule</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>schedule <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">team =</span> <span class="fu">c</span>(<span class="st">"CMS"</span>, <span class="st">"La Verne"</span>, <span class="st">"ETBU"</span>, <span class="st">"Occidental"</span>, <span class="st">"Cal Lu"</span>, <span class="st">"Cal Tech"</span>, <span class="st">"Whittier"</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Lewis and Clark"</span>, <span class="st">"Pacific Lutheran"</span>, <span class="st">"Chapman"</span>, <span class="st">"Redlands"</span>, </span>
@@ -326,11 +326,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Season Summary:</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Simulated Season Summary:</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Season Summary:</code></pre>
+Simulated Season Summary:</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -353,7 +353,7 @@ Season Summary:</code></pre>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)  <span class="co"># for reproducibility</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Your original schedule</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  original schedule</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>schedule <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">team =</span> <span class="fu">c</span>(<span class="st">"CMS"</span>, <span class="st">"La Verne"</span>, <span class="st">"ETBU"</span>, <span class="st">"Occidental"</span>, <span class="st">"Cal Lu"</span>, <span class="st">"Cal Tech"</span>, <span class="st">"Whittier"</span>,</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Lewis and Clark"</span>, <span class="st">"Pacific Lutheran"</span>, <span class="st">"Chapman"</span>, <span class="st">"Redlands"</span>, </span>
@@ -463,8 +463,8 @@ Season Summary:</code></pre>
 <span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
 <span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>percent_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>    pct <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_results<span class="sc">$</span>total_wins <span class="sc">&lt;=</span> input<span class="sc">$</span>win_thresh) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">"Percentage of seasons with "</span>, input<span class="sc">$</span>win_thresh, <span class="st">" wins or worse: "</span>, <span class="fu">round</span>(pct, <span class="dv">2</span>), <span class="st">"%"</span>)</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>    pct <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_results<span class="sc">$</span>total_wins <span class="sc">&gt;=</span> input<span class="sc">$</span>win_thresh) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">"Percentage of seasons with a better record than "</span>, input<span class="sc">$</span>win_thresh, <span class="st">" wins: "</span>, <span class="fu">round</span>(pct, <span class="dv">2</span>), <span class="st">"%"</span>)</span>
 <span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>  })</span>
 <span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>win_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
@@ -483,23 +483,21 @@ Season Summary:</code></pre>
 <span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a><span class="co"># Run app</span></span>
 <span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<p></p><div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div><p></p>
 </div>
-</div>
+<p>https://nicols18.shinyapps.io/simulation/ The above code relates to my shiny application.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)  <span class="co"># for reproducibility</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Updated schedule data</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Schedule data</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>schedule <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">team =</span> <span class="fu">c</span>(<span class="st">"CMS"</span>, <span class="st">"La Verne"</span>, <span class="st">"ETBU"</span>, <span class="st">"Occidental"</span>, <span class="st">"Cal Lu"</span>, <span class="st">"Cal Tech"</span>, <span class="st">"Whittier"</span>,</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Lewis and Clark"</span>, <span class="st">"Pacific Lutheran"</span>, <span class="st">"Chapman"</span>, <span class="st">"Redlands"</span>, </span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">"MIT"</span>, <span class="st">"UW La Crosse"</span>, <span class="st">"Tufts"</span>),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">win_prob =</span> <span class="fu">c</span>(<span class="fl">0.49</span>, <span class="fl">0.43</span>, <span class="fl">0.51</span>, <span class="fl">0.84</span>, <span class="fl">0.58</span>, <span class="fl">0.93</span>, <span class="fl">0.77</span>,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>               <span class="fl">0.64</span>, <span class="fl">0.68</span>, <span class="fl">0.72</span>, <span class="fl">0.64</span>, </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>               <span class="fl">0.75</span>, <span class="fl">0.48</span>, <span class="fl">0.71</span>),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">win_prob =</span> <span class="fu">c</span>(<span class="fl">0.56</span>, <span class="fl">0.55</span>, <span class="fl">0.53</span>, <span class="fl">0.85</span>, <span class="fl">0.60</span>, <span class="fl">0.95</span>, <span class="fl">0.84</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>               <span class="fl">0.71</span>, <span class="fl">0.73</span>, <span class="fl">0.60</span>, <span class="fl">0.74</span>, </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>               <span class="fl">0.80</span>, <span class="fl">0.54</span>, <span class="fl">0.65</span>),</span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">games =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>,</span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>            <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>,</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>            <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
@@ -516,27 +514,92 @@ Season Summary:</code></pre>
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  total_wins <span class="ot">&lt;-</span> <span class="fu">sum</span>(results<span class="sc">$</span>wins)</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  total_losses <span class="ot">&lt;-</span> <span class="fu">sum</span>(results<span class="sc">$</span>losses)</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">total_wins =</span> total_wins, <span class="at">total_losses =</span> total_losses)</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the simulation 1000 times</span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>n_simulations <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>sim_results <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>n_simulations, <span class="sc">~</span><span class="fu">simulate_season</span>(schedule))</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics</span></span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> sim_results <span class="sc">|&gt;</span></span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_wins =</span> <span class="fu">mean</span>(total_wins),</span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_wins =</span> <span class="fu">sd</span>(total_wins),</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_wins =</span> <span class="fu">median</span>(total_wins),</span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_wins =</span> <span class="fu">max</span>(total_wins),</span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_wins =</span> <span class="fu">min</span>(total_wins)</span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the summary</span></span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">total_wins =</span> total_wins)</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Run 1000 simulations</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>n_simulations <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>sim_results <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>n_simulations, <span class="sc">~</span><span class="fu">simulate_season</span>(schedule))</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar plot of total wins</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim_results, <span class="fu">aes</span>(<span class="at">x =</span> total_wins)) <span class="sc">+</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">27</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span> </span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Total Wins Over 1000 Simulated Seasons"</span>,</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Total Wins"</span>,</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final6_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pct_27_or_more <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_results<span class="sc">$</span>total_wins <span class="sc">&gt;=</span> <span class="dv">27</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"Percentage of simulations with 27 or more wins: "</span>, <span class="fu">round</span>(pct_27_or_more, <span class="dv">2</span>), <span class="st">"%"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Percentage of simulations with 27 or more wins: 65.7%"</code></pre>
+</div>
+</div>
+<p>The red line represents the number of wins they had this season.</p>
+<p>As can be seen in this graph the final result of 27 wins in the 2025 season is well aligned with the center of the bell curve. It could be considered a little low as the average expected number of wins was 27.7 and the median was 28 but still that is barely under performing. With this data I would suggest that this has not been a poor season but instead just slightly below what their expected number of wins should have been. Especially considering that these predictions were based off the greatest season in Pomona History so it could be safely assumed that these predictions are honestly too high. Last season the team had 30 regular season wins and yet after the season they were still predicted to only have won 28 games so that implies that they outperformed despite putting up exceptional offensive and defensive statistics. <br> So I decided to get some summary statistics utilizing the new predictive winning percentage after the 2025 season (seen below) and I found that even this year they outperformed what they were predicted to achieve. Albeit they overachieved by less than the 2024 team but it still shows how the 2025 team has had a solid year and to ever have considered it an “off year” is ridiculous. As I look to the future I wish them the best in the SCIAC playoffs as currently they are not guaranteed a regional spot with the new NPI rating system implemented by the NCAA.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)  <span class="co"># for reproducibility</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Updated schedule data</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>schedule <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">team =</span> <span class="fu">c</span>(<span class="st">"CMS"</span>, <span class="st">"La Verne"</span>, <span class="st">"ETBU"</span>, <span class="st">"Occidental"</span>, <span class="st">"Cal Lu"</span>, <span class="st">"Cal Tech"</span>, <span class="st">"Whittier"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Lewis and Clark"</span>, <span class="st">"Pacific Lutheran"</span>, <span class="st">"Chapman"</span>, <span class="st">"Redlands"</span>, </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">"MIT"</span>, <span class="st">"UW La Crosse"</span>, <span class="st">"Tufts"</span>),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">win_prob =</span> <span class="fu">c</span>(<span class="fl">0.49</span>, <span class="fl">0.43</span>, <span class="fl">0.51</span>, <span class="fl">0.84</span>, <span class="fl">0.58</span>, <span class="fl">0.93</span>, <span class="fl">0.77</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>               <span class="fl">0.64</span>, <span class="fl">0.68</span>, <span class="fl">0.72</span>, <span class="fl">0.64</span>, </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>               <span class="fl">0.75</span>, <span class="fl">0.48</span>, <span class="fl">0.71</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">games =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>            <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>            <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulation function</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>simulate_season <span class="ot">&lt;-</span> <span class="cf">function</span>(schedule) {</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> schedule <span class="sc">|&gt;</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">wins =</span> <span class="fu">sum</span>(<span class="fu">runif</span>(games) <span class="sc">&lt;</span> win_prob),</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">losses =</span> games <span class="sc">-</span> wins</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>  total_wins <span class="ot">&lt;-</span> <span class="fu">sum</span>(results<span class="sc">$</span>wins)</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>  total_losses <span class="ot">&lt;-</span> <span class="fu">sum</span>(results<span class="sc">$</span>losses)</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">total_wins =</span> total_wins, <span class="at">total_losses =</span> total_losses)</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the simulation 1000 times</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>n_simulations <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>sim_results <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span>n_simulations, <span class="sc">~</span><span class="fu">simulate_season</span>(schedule))</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> sim_results <span class="sc">|&gt;</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_wins =</span> <span class="fu">mean</span>(total_wins),</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_wins =</span> <span class="fu">sd</span>(total_wins),</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_wins =</span> <span class="fu">median</span>(total_wins),</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_wins =</span> <span class="fu">max</span>(total_wins),</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_wins =</span> <span class="fu">min</span>(total_wins)</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the summary</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 5

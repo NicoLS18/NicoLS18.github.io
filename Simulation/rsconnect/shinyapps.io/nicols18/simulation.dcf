@@ -5,6 +5,8 @@ account: nicols18
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 14684050
-bundleId: 10230716
+bundleId: 10235225
 url: https://nicols18.shinyapps.io/simulation/
 version: 1
+asMultiple: FALSE
+asStatic: FALSE
