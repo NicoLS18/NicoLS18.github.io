@@ -109,7 +109,7 @@ https://masseyratings.com/game.php?s0=614639&amp;oid0=6286&amp;h=0&amp;s1=614639
 
 -   After mapping the simulation 1,000 times I found the following basic stats:
 
-```{r, echo=FALSE}
+```{r}
 
 
 set.seed(42)  # for reproducibility
