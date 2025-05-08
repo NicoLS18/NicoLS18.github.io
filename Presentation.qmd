@@ -13,6 +13,7 @@ execute:
   warning: false
   message: false
 ---
+
 ```{r, echo=FALSE}
 library(dplyr)
 library(purrr)
@@ -21,34 +22,34 @@ library(shiny)
 library(tibble)
 library(rsconnect)
 ```
+
 ## **Overall Changes I Made to my Website**
 
-- Substantially improved my citations  
-- Added notes within my code to make it clearer
-- Added code folding to all projects and overall cleaned up the presentation
-- Adjusted introductions so they had a professional tone and appearance
-
-
+-   Substantially improved my citations\
+-   Added notes within my code to make it clearer
+-   Added code folding to all projects and overall cleaned up the presentation
+-   Edited introductions so they had a professional tone and appearance
+-   Adjusted home page to describe my current skills and career interests
+    -   Added link to Resume
 
 ## **Creating a new Simulation**
-- Initially created a simulation about my odds to receive a single. 
-  - Insufficient information and an overload of variables hindered simulation value
-  - Additionally overall lack of clarity throughout project
-- Instead I chose to get a better understanding of the Pomona Baseball teams success 
+
+-   Initially created a simulation about my odds to receive a single.
+    -   Insufficient information and an overload of variables hindered simulation value
+    -   Additionally overall lack of clarity throughout project
+-   Instead I chose to get a better understanding of the Pomona Baseball teams success
 
 ## **Leading Question**
 
-- Is Pomona truly underperforming the year after a historic run?
-  - 2022 historic run to regionals 
-  - 2023 poor season and missed SCIAC playoffs
-  - 2024 greatest run in history to NCAA World Series in Cleveland
-  - 2025 sentiments of a let down season (although ended up finishing strong)
+-   Is Pomona truly underperforming the year after a historic run?
+    -   2022 historic run to regionals
+    -   2023 poor season and missed SCIAC playoffs
+    -   2024 greatest run in history to NCAA World Series in Cleveland
+    -   2025 sentiments of a let down season (although ended up finishing strong)
 
 ## **Collecting the Data and Simulating the Season**
 
-- Utilized Massey Ratings to collect winning percentages 
-https://masseyratings.com/cbase2024/ncaa-d3/ratings 
-
+-   Utilized Massey Ratings to collect winning percentages https://masseyratings.com/cbase2024/ncaa-d3/ratings
 
 ```{r, echo=FALSE}
 set.seed(42)  # for reproducibility
@@ -91,7 +92,9 @@ print(season$results)
 ```
 
 ## **Results of 1,000 Simulations**
-- After mapping the simulation 1,000 times I found the following basic stats: 
+
+-   After mapping the simulation 1,000 times I found the following basic stats:
+
 ```{r, echo=FALSE}
 
 
@@ -145,16 +148,14 @@ print(summary_stats)
 
 ```
 
-
 ## **Graphical Presentation**
 
-- Created a shiny bar graph 
+-   Created a shiny bar graph
 
 https://nicols18.shinyapps.io/simulation/
 
+<iframe src="https://nicols18.shinyapps.io/simulation/" width="100%" height="600px" frameborder="0">
 
-<iframe src="https://nicols18.shinyapps.io/simulation/" 
-        width="100%" height="600px" frameborder="0">
 </iframe>
 
 ## **Conclusions**
