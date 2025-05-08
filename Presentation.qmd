@@ -41,6 +41,8 @@ library(rsconnect)
 
 ![Pomona Pitzer Baseball sweeping ETBU to head to their first ever College World Series Appearance](BSBLwin.png)
 
+![](BSBLwin.png){width="800" style="display: block; margin: auto;"}
+
 ## **Leading Question**
 
 -   Is Pomona truly underperforming the year after a historic run?
@@ -50,6 +52,8 @@ library(rsconnect)
     -   2025 sentiments of a let down season (although ended up finishing strong)
 
 ![Pomona Pitzer final game in Cleveland as they were eliminated by Endicott](CWSbsbl.png)
+
+![](CWSbsbl.png){width="800" style="display: block; margin: auto;"}
 
 ## **Collecting the Data and Simulating the Season**
 
