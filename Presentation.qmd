@@ -39,7 +39,7 @@ library(rsconnect)
     -   Additionally overall lack of clarity throughout project
 -   Instead I chose to get a better understanding of the Pomona Baseball teams success
 
-![Pomona Pitzer Baseball sweeping ETBU to head to their first ever College World Series Appearance](BSBLwin.png)
+![Pomona Pitzer Baseball sweeping ETBU to head to their first ever College World Series Appearance Photo/courtesy of Pomona-Pitzer athletics](BSBLwin.png)
 
 ![](BSBLwin.png){width="800" style="display: block; margin: auto;"}
 
@@ -51,7 +51,7 @@ library(rsconnect)
     -   2024 greatest run in history to NCAA World Series in Cleveland
     -   2025 sentiments of a let down season (although ended up finishing strong)
 
-![Pomona Pitzer final game in Cleveland as they were eliminated by Endicott](CWSbsbl.png)
+![Pomona Pitzer final game in Cleveland as they were eliminated by Endicott Photo/courtesy of Pomona-Pitzer athletics](CWSbsbl.png)
 
 ![](CWSbsbl.png){width="800" style="display: block; margin: auto;"}
 
@@ -181,3 +181,11 @@ https://nicols18.shinyapps.io/simulation/
 -   Performance is respectable, not disappointing—especially when considering predictions were based on the historic 2024 season.
 
 -   In 2024, the team won 30 games, yet was predicted for 28—overperformed even with elite stats.
+
+## **Will Pomona get a Regional Bid?**
+- Guaranteed bid if they win SCIAC Playoffs starting today at 4pm
+- Top 23 teams in terms of NPI that do not win their conference get an at large bid 
+- 64 total teams make the playoffs
+- NPI has a final calculation on May 11th 
+- Pomona is currently 54th nationally in NPI. Will they get a bid?
+![Will they make another World Series Appearance? Photo/courtesy of Pomona-Pitzer athletics](dogpile.png)
