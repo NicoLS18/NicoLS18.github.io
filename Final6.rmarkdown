@@ -1,0 +1,370 @@
+---
+title: "PP Baseball Off Year or Regression to the Mean?"
+author: "Nicolas Laub-Sabater"
+execute: 
+  warning: false
+  message: false
+format:
+  html: 
+    code-fold: true
+---
+
+```{r, echo=FALSE}
+library(dplyr)
+library(purrr)
+library(ggplot2)
+library(shiny)
+library(tibble)
+```
+
+
+
+The baseball team had a record year last year, reaching the finals in Cleveland, Ohio which is two rounds further than they had ever reached in program history. Yet this year the team spirit is that this season has been let down, beginning as a #5 seed in preseason ratings and have since dropped out of the top 35 nationally. This pattern repeats one seen only 3 years prior when the team had a phenomenal year and made a real push into the playoffs and then the following year was a disappointment as their win percentage dropped over 200 points and they secured 10 fewer wins. So the question then becomes are these "poor" seasons truly below average seasons? Or are these outstanding years the true outliers and the year following is purely regression towards the mean?
+
+This was the question I set out to answer. Instead of scraping past season data I chose to utilize current stats that stated the win percentage of Pomona Pitzer vs their opponents. To do this I went into massey ratings (https://masseyratings.com/cbase2024/ncaa-d3/ratings) and found the expected winning percentage of PP baseball against every team they have played and intend to play this season. A note here is that I chose the win percentage that was calculated off of the 2024 season. I chose this data because I did not want the data to be flawed due to the games that had already occurred this season. I wanted to evaluate what Massey Ratings expected to occur for the 2025 season (when Pomona Pitzer Baseball was at its very best).
+
+Utilizing the win percentages I found on Massey Ratings and utilizing the Pomona Baseball schedule to extract who they played and how many times, I created the following table. A quick note, the win percentage is the percentage chance that Pomona Pitzer will beat them. Again these numbers have changed since Pomona has done poorly compared to expectations this season. For example, at the end of 2024 PP baseball had a 55% chance of beating La Verne, currently Massey Ratings says La Verne has a 57% chance of beating Pomona, (This is an extreme example as La Verne has had an exceptional season so far).
+
+
+
+```{r}
+# Create multi-line string with  data
+raw_text <- "
+CMS 0.56 3
+La_Verne 0.55 4
+ETBU 0.53 3
+Occidental 0.85 3
+Cal_Lu 0.60 3
+Cal_Tech 0.95 3
+Whittier 0.84 4
+Lewis_and_Clark 0.71 3
+Pacific_Lutheran 0.73 2
+Chapman 0.60 3
+Redlands 0.74 3
+Williamette 0.60 1
+MIT 0.80 2
+UW_La_Crosse 0.54 1
+Tufts 0.65 3
+"
+
+# Read the data into a data frame
+schedule <- read.table(text = raw_text, header = FALSE, col.names = c("team", "win_prob", "games"))
+
+
+print(schedule)
+
+```
+
+
+
+With the previous schedule and probability to data frame I then created the code to simulate the season. This is the original code that I would later turn into a function and map it in order to run it 1,000 times. (So these results are a sample simulated season.)
+
+
+
+```{r}
+set.seed(42)  # for reproducibility
+
+# Create a data frame with schedule
+schedule <- data.frame(
+  team = c("CMS", "La Verne", "ETBU", "Occidental", "Cal Lu", "Cal Tech", "Whittier",
+           "Lewis and Clark", "Pacific Lutheran", "Chapman", "Redlands", 
+           "MIT", "UW La Crosse", "Tufts"),
+  win_prob = c(0.56, 0.55, 0.53, 0.85, 0.60, 0.95, 0.84,
+               0.71, 0.73, 0.60, 0.74,
+               0.80, 0.54, 0.65),
+  games = c(3, 4, 3, 3, 3, 3, 4,
+            3, 2, 3, 3,
+            2, 1, 3)
+)
+
+# Simulate the season
+simulate_season <- function(schedule) {
+  results <- schedule |>
+    dplyr::rowwise() |>
+    dplyr::mutate(
+      wins = sum(runif(games) < win_prob),
+      losses = games - wins
+    ) |>
+    dplyr::ungroup()
+  
+  # Season totals
+  total_wins <- sum(results$wins)
+  total_losses <- sum(results$losses)
+  
+  list(results = results, total_wins = total_wins, total_losses = total_losses)
+}
+
+# Run the simulation
+season <- simulate_season(schedule)
+
+# View detailed results
+print(season$results)
+
+# Print summary
+cat("\nSimulated Season Summary:\n")
+cat("Total Wins:", season$total_wins, "\n")
+cat("Total Losses:", season$total_losses, "\n")
+
+```
+
+
+
+Turning it into a function and running it 1000 times which is followed by some basic stats that we care about in this simulation: average wins, standard deviation, median and then it is interesting to see the min and max win seasons.
+
+
+
+```{r}
+
+
+set.seed(42)  # for reproducibility
+
+#  original schedule
+schedule <- data.frame(
+  team = c("CMS", "La Verne", "ETBU", "Occidental", "Cal Lu", "Cal Tech", "Whittier",
+           "Lewis and Clark", "Pacific Lutheran", "Chapman", "Redlands", 
+           "MIT", "UW La Crosse", "Tufts"),
+  win_prob = c(0.56, 0.55, 0.53, 0.85, 0.60, 0.95, 0.84,
+               0.71, 0.73, 0.60, 0.74, 
+               0.80, 0.54, 0.65),
+  games = c(3, 4, 3, 3, 3, 3, 4,
+            3, 2, 3, 3,
+            2, 1, 3)
+)
+
+# Your simulation function
+simulate_season <- function(schedule) {
+  results <- schedule |>
+    rowwise() |>
+    mutate(
+      wins = sum(runif(games) < win_prob),
+      losses = games - wins
+    ) |>
+    ungroup()
+  
+  total_wins <- sum(results$wins)
+  total_losses <- sum(results$losses)
+  
+  tibble(total_wins = total_wins, total_losses = total_losses)
+}
+
+# Run the simulation 1000 times
+n_simulations <- 1000
+sim_results <- map_dfr(1:n_simulations, ~simulate_season(schedule))
+
+# Summary
+summary_stats <- sim_results |>
+  summarise(
+    avg_wins = mean(total_wins),
+    sd_wins = sd(total_wins),
+    median_wins=median(total_wins),
+    max_wins = max(total_wins),
+    min_wins = min(total_wins)
+  )
+
+# Print results
+print(summary_stats)
+
+```
+
+
+
+The following graph is a presentation of all 1000 simulations and I made it shiny so that you can interact with it and understand percentage wise how a 27 win year such as this one is an expected year and not a poor showing. These calculations are also inflated as the win percentages were gathered off of the end of a historic PP season.
+
+
+
+```{r}
+#| eval: false
+
+# Prepare simulation data once
+set.seed(42)
+
+schedule <- data.frame(
+  team = c("CMS", "La Verne", "ETBU", "Occidental", "Cal Lu", "Cal Tech", "Whittier",
+           "Lewis and Clark", "Pacific Lutheran", "Chapman", "Redlands", 
+           "MIT", "UW La Crosse", "Tufts"),
+  win_prob = c(0.56, 0.55, 0.53, 0.85, 0.60, 0.95, 0.84,
+               0.71, 0.73, 0.60, 0.74, 
+               0.80, 0.54, 0.65),
+  games = c(3, 4, 3, 3, 3, 3, 4,
+            3, 2, 3, 3,
+            2, 1, 3)
+)
+
+simulate_season <- function(schedule) {
+  results <- schedule |>
+    rowwise() |>
+    mutate(
+      wins = sum(runif(games) < win_prob),
+      losses = games - wins
+    ) |>
+    ungroup()
+  
+  total_wins <- sum(results$wins)
+  tibble(total_wins = total_wins)
+}
+
+n_simulations <- 1000
+sim_results <- map_dfr(1:n_simulations, ~simulate_season(schedule))
+
+# UI
+ui <- fluidPage(
+  titlePanel("Simulated Win Distribution"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("win_thresh", "Minimum Wins:",
+                  min = min(sim_results$total_wins),
+                  max = max(sim_results$total_wins),
+                  value = 27,
+                  step = 1)
+    ),
+    mainPanel(
+      textOutput("percent_text"),
+      plotOutput("win_plot")
+    )
+  )
+)
+
+# Server
+server <- function(input, output) {
+  
+  output$percent_text <- renderText({
+    pct <- mean(sim_results$total_wins >= input$win_thresh) * 100
+    paste0("Percentage of seasons with a better record than ", input$win_thresh, " wins: ", round(pct, 2), "%")
+  })
+  
+  output$win_plot <- renderPlot({
+    ggplot(sim_results, aes(x = total_wins)) +
+      geom_bar(fill = "steelblue", color = "black") +
+      geom_vline(xintercept = input$win_thresh, color = "red", linetype = "dashed", size = 1) +
+      labs(
+        title = "Distribution of Total Wins Over 1000 Simulated Seasons",
+        x = "Total Wins",
+        y = "Frequency"
+      ) +
+      theme_minimal()
+  })
+}
+
+# Run app
+shinyApp(ui = ui, server = server)
+
+```
+
+
+
+https://nicols18.shinyapps.io/simulation/ The above code relates to my shiny application.
+
+
+
+```{r}
+
+
+set.seed(42)  # for reproducibility
+
+# Schedule data
+schedule <- data.frame(
+  team = c("CMS", "La Verne", "ETBU", "Occidental", "Cal Lu", "Cal Tech", "Whittier",
+           "Lewis and Clark", "Pacific Lutheran", "Chapman", "Redlands", 
+           "MIT", "UW La Crosse", "Tufts"),
+  win_prob = c(0.56, 0.55, 0.53, 0.85, 0.60, 0.95, 0.84,
+               0.71, 0.73, 0.60, 0.74, 
+               0.80, 0.54, 0.65),
+  games = c(3, 4, 3, 3, 3, 3, 4,
+            3, 2, 3, 3,
+            2, 1, 3)
+)
+
+# Simulation function
+simulate_season <- function(schedule) {
+  results <- schedule |>
+    rowwise() |>
+    mutate(
+      wins = sum(runif(games) < win_prob),
+      losses = games - wins
+    ) |>
+    ungroup()
+  
+  total_wins <- sum(results$wins)
+  tibble(total_wins = total_wins)
+}
+
+# Run 1000 simulations
+n_simulations <- 1000
+sim_results <- map_dfr(1:n_simulations, ~simulate_season(schedule))
+
+# Create a bar plot of total wins
+ggplot(sim_results, aes(x = total_wins)) +
+  geom_bar(fill = "steelblue", color = "black") +
+    geom_vline(xintercept = 27, color = "red", linetype = "dashed", size = 1)+ 
+  labs(
+    title = "Distribution of Total Wins Over 1000 Simulated Seasons",
+    x = "Total Wins",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+
+pct_27_or_more <- mean(sim_results$total_wins >= 27) * 100
+print(paste0("Percentage of simulations with 27 or more wins: ", round(pct_27_or_more, 2), "%"))
+
+```
+
+
+
+The red line represents the number of wins they had this season.
+
+As can be seen in this graph the final result of 27 wins in the 2025 season is well aligned with the center of the bell curve. It could be considered a little low as the average expected number of wins was 27.7 and the median was 28 but still that is barely under performing. With this data I would suggest that this has not been a poor season but instead just slightly below what their expected number of wins should have been. Especially considering that these predictions were based off the greatest season in Pomona History so it could be safely assumed that these predictions are honestly too high. Last season the team had 30 regular season wins and yet after the season they were still predicted to only have won 28 games so that implies that they outperformed despite putting up exceptional offensive and defensive statistics. <br> So I decided to get some summary statistics utilizing the new predictive winning percentage after the 2025 season (seen below) and I found that even this year they outperformed what they were predicted to achieve. Albeit they overachieved by less than the 2024 team but it still shows how the 2025 team has had a solid year and to ever have considered it an "off year" is ridiculous. As I look to the future I wish them the best in the SCIAC playoffs as currently they are not guaranteed a regional spot with the new NPI rating system implemented by the NCAA.
+
+
+
+```{r}
+
+set.seed(42)  # for reproducibility
+
+# Updated schedule data
+schedule <- data.frame(
+  team = c("CMS", "La Verne", "ETBU", "Occidental", "Cal Lu", "Cal Tech", "Whittier",
+           "Lewis and Clark", "Pacific Lutheran", "Chapman", "Redlands", 
+           "MIT", "UW La Crosse", "Tufts"),
+  win_prob = c(0.49, 0.43, 0.51, 0.84, 0.58, 0.93, 0.77,
+               0.64, 0.68, 0.72, 0.64, 
+               0.75, 0.48, 0.71),
+  games = c(3, 4, 3, 3, 3, 3, 4,
+            3, 2, 3, 3,
+            2, 1, 3)
+)
+
+# Simulation function
+simulate_season <- function(schedule) {
+  results <- schedule |>
+    rowwise() |>
+    mutate(
+      wins = sum(runif(games) < win_prob),
+      losses = games - wins
+    ) |>
+    ungroup()
+  
+  total_wins <- sum(results$wins)
+  total_losses <- sum(results$losses)
+  
+  tibble(total_wins = total_wins, total_losses = total_losses)
+}
+
+# Run the simulation 1000 times
+n_simulations <- 1000
+sim_results <- map_dfr(1:n_simulations, ~simulate_season(schedule))
+
+# Summary statistics
+summary_stats <- sim_results |>
+  summarise(
+    avg_wins = mean(total_wins),
+    sd_wins = sd(total_wins),
+    median_wins = median(total_wins),
+    max_wins = max(total_wins),
+    min_wins = min(total_wins)
+  )
+
+# Print the summary
+print(summary_stats)
+
+```
+

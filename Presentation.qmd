@@ -99,9 +99,9 @@ season <- simulate_season(schedule)
 print(season$results)
 ```
 
-## How Massey Ratings Looks
+## **How Massey Ratings Looks**
 
-<iframe src="https://masseyratings.com/game.php?s0=614639&oid0=6286&h=0&s1=614639&oid1=0" width="100%" height="600px" style="border:none;">
+<iframe src="https://masseyratings.com/game.php?s0=614639&amp;oid0=6286&amp;h=0&amp;s1=614639&amp;oid1=0" width="100%" height="600px" style="border:none;">
 
 </iframe>
 
@@ -173,3 +173,11 @@ https://nicols18.shinyapps.io/simulation/
 </iframe>
 
 ## **Conclusions**
+
+-   Final result of 27 wins aligns closely with the center of the simulated distribution.
+
+-   Slightly underperformed vs. expected average (27.7) and median (28), but the difference is minimal.
+
+-   Performance is respectable, not disappointing—especially when considering predictions were based on the historic 2024 season.
+
+-   In 2024, the team won 30 games, yet was predicted for 28—overperformed even with elite stats.

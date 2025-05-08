@@ -8,6 +8,7 @@ format:
   html: 
     code-fold: true
 ---
+
 ```{r, echo=FALSE}
 library(dplyr)
 library(purrr)
@@ -16,12 +17,12 @@ library(shiny)
 library(tibble)
 ```
 
+The baseball team had a record year last year, reaching the finals in Cleveland, Ohio which is two rounds further than they had ever reached in program history. Yet this year the team spirit is that this season has been let down, beginning as a #5 seed in preseason ratings and have since dropped out of the top 35 nationally. This pattern repeats one seen only 3 years prior when the team had a phenomenal year and made a real push into the playoffs and then the following year was a disappointment as their win percentage dropped over 200 points and they secured 10 fewer wins. So the question then becomes are these "poor" seasons truly below average seasons? Or are these outstanding years the true outliers and the year following is purely regression towards the mean?
 
-The baseball team had a record year last year, reaching the finals in Cleveland, Ohio which is two rounds further than they had ever reached in program history. Yet this year the team spirit is that this season has been let down, beginning as a #5 seed in preseason ratings and have since dropped out of the top 35 nationally. This pattern repeats one seen only 3 years prior when the team had a phenomenal year and made a real push into the playoffs and then the following year was a disappointment as their win percentage dropped over 200 points and they secured 10 fewer wins. So the question then becomes are these "poor" seasons truly below average seasons? Or are these outstanding years the true outliers and the year following is purely regression towards the mean? 
+This was the question I set out to answer. Instead of scraping past season data I chose to utilize current stats that stated the win percentage of Pomona Pitzer vs their opponents. To do this I went into massey ratings (https://masseyratings.com/cbase2024/ncaa-d3/ratings) and found the expected winning percentage of PP baseball against every team they have played and intend to play this season. A note here is that I chose the win percentage that was calculated off of the 2024 season. I chose this data because I did not want the data to be flawed due to the games that had already occurred this season. I wanted to evaluate what Massey Ratings expected to occur for the 2025 season (when Pomona Pitzer Baseball was at its very best).
 
-This was the question I set out to answer. Instead of scraping past season data I chose to utilize current stats that stated the win percentage of Pomona Pitzer vs their opponents. To do this I went into massey ratings (https://masseyratings.com/cbase2024/ncaa-d3/ratings) and found the expected winning percentage of PP baseball against every team they have played and intend to play this season. A note here is that I chose the win percentage that was calculated off of the 2024 season. I chose this data because I did not want the data to be flawed due to the games that had already occurred this season. I wanted to evaluate what Massey Ratings expected to occur for the 2025 season (when Pomona Pitzer Baseball was at its very best). 
+Utilizing the win percentages I found on Massey Ratings and utilizing the Pomona Baseball schedule to extract who they played and how many times, I created the following table. A quick note, the win percentage is the percentage chance that Pomona Pitzer will beat them. Again these numbers have changed since Pomona has done poorly compared to expectations this season. For example, at the end of 2024 PP baseball had a 55% chance of beating La Verne, currently Massey Ratings says La Verne has a 57% chance of beating Pomona, (This is an extreme example as La Verne has had an exceptional season so far).
 
-Utilizing the win percentages I found on Massey Ratings and utilizing the Pomona Baseball schedule to extract who they played and how many times, I created the following table. A quick note, the win percentage is the percentage chance that Pomona Pitzer will beat them. Again these numbers have changed since Pomona has done poorly compared to expectations this season. For example, at the end of 2024 PP baseball had a 55% chance of beating La Verne, currently Massey Ratings says La Verne has a 57% chance of beating Pomona, (This is an extreme example as La Verne has had an exceptional season so far). 
 ```{r}
 # Create multi-line string with  data
 raw_text <- "
@@ -98,8 +99,8 @@ cat("Total Losses:", season$total_losses, "\n")
 
 ```
 
-
 Turning it into a function and running it 1000 times which is followed by some basic stats that we care about in this simulation: average wins, standard deviation, median and then it is interesting to see the min and max win seasons.
+
 ```{r}
 
 
@@ -153,8 +154,7 @@ print(summary_stats)
 
 ```
 
-The following graph is a presentation of all 1000 simulations and I made it shiny so that you can interact with it and understand percentage wise how a 27 win year such as this one is an expected year and not a poor showing. These calculations are also inflated as the win percentages were gathered off of the end of a historic PP season. 
-
+The following graph is a presentation of all 1000 simulations and I made it shiny so that you can interact with it and understand percentage wise how a 27 win year such as this one is an expected year and not a poor showing. These calculations are also inflated as the win percentages were gathered off of the end of a historic PP season.
 
 ```{r}
 #| eval: false
@@ -233,7 +233,8 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 
 ```
-https://nicols18.shinyapps.io/simulation/ The above code relates to my shiny application. 
+
+https://nicols18.shinyapps.io/simulation/ The above code relates to my shiny application.
 
 ```{r}
 
@@ -286,13 +287,10 @@ pct_27_or_more <- mean(sim_results$total_wins >= 27) * 100
 print(paste0("Percentage of simulations with 27 or more wins: ", round(pct_27_or_more, 2), "%"))
 
 ```
+
 The red line represents the number of wins they had this season.
 
-
-As can be seen in this graph the final result of 27 wins in the 2025 season is well aligned with the center of the bell curve. It could be considered a little low as the average expected number of wins was 27.7 and the median was 28 but still that is barely under performing. With this data I would suggest that this has not been a poor season but instead just slightly below what their expected number of wins should have been. Especially considering that these predictions were based off the greatest season in Pomona History so it could be safely assumed that these predictions are honestly too high. Last season the team had 30 regular season wins and yet after the season they were still predicted to only have won 28 games so that implies that they outperformed despite putting up exceptional offensive and defensive statistics. <br>
-So I decided to get some summary statistics utilizing the new predictive winning percentage after the 2025 season (seen below) and I found that even this year they outperformed what they were predicted to achieve. Albeit they overachieved by less than the 2024 team but it still shows how the 2025 team has had a solid year and to ever have considered it an "off year" is ridiculous. As I look to the future I wish them the best in the SCIAC playoffs as currently they are not guaranteed a regional spot with the new NPI rating system implemented by the NCAA. 
-
-
+As can be seen in this graph the final result of 27 wins in the 2025 season is well aligned with the center of the bell curve. It could be considered a little low as the average expected number of wins was 27.7 and the median was 28 but still that is barely under performing. With this data I would suggest that this has not been a poor season but instead just slightly below what their expected number of wins should have been. Especially considering that these predictions were based off the greatest season in Pomona History so it could be safely assumed that these predictions are honestly too high. Last season the team had 30 regular season wins and yet after the season they were still predicted to only have won 28 games so that implies that they outperformed despite putting up exceptional offensive and defensive statistics. <br> So I decided to get some summary statistics utilizing the new predictive winning percentage after the 2025 season (seen below) and I found that even this year they outperformed what they were predicted to achieve. Albeit they overachieved by less than the 2024 team but it still shows how the 2025 team has had a solid year and to ever have considered it an "off year" is ridiculous. As I look to the future I wish them the best in the SCIAC playoffs as currently they are not guaranteed a regional spot with the new NPI rating system implemented by the NCAA.
 
 ```{r}
 
@@ -345,4 +343,3 @@ summary_stats <- sim_results |>
 print(summary_stats)
 
 ```
-
