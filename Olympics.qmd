@@ -1,5 +1,5 @@
 ---
-title: "Olympics"
+title: "Olympics: Height and Weight"
 author: "Nicolas Laub-Sabater"
 execute: 
   warning: false
