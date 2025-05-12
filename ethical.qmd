@@ -5,98 +5,38 @@ author: "Nicolas Laub-Sabater"
 
 04/16/2025
 
-Data Science Ethics 
+Title: Ethical Reflections on the Amazon AI Hiring Tool
+
+Amazon’s now-discontinued AI hiring tool offers a powerful example of how data science can unintentionally perpetuate systemic bias when not designed and tested with ethical rigor. Developed to streamline hiring, the system was trained on ten years’ worth of resumes submitted primarily by men—an input that reflected the company’s historically male-dominated workforce. As a result, the model penalized resumes that contained terms like “women’s” or references to all-women’s colleges, thereby disadvantaging female applicants. While the tool was built with the intent to improve hiring efficiency, the flawed composition of its training data allowed past inequalities to become codified in its algorithmic logic.
+
+This case exemplifies the ethical mandate to “Recognize and mitigate bias in ourselves and in the data we use.” By training the model on biased historical data, Amazon effectively taught the system to mimic prior discriminatory hiring patterns. The algorithm's design assumed that prior successful candidates were ideal representations of merit, when in reality, that dataset excluded many qualified individuals due to historical gender bias. Amazon's failure to interrogate the representativeness of its training data before deploying the system shows how technical sophistication cannot substitute for ethical foresight. Bias in the data is not a peripheral concern—it is central to whether machine learning systems serve or harm society.
+
+Another relevant ethical principle is to “Consider carefully the ethical implications of choices we make when using data, and the impacts of our work on individuals and society.” The tool’s outputs directly influenced the opportunities afforded to real applicants, reinforcing structural inequalities in hiring. The decision to automate a process historically shaped by bias—without first addressing that bias—resulted in a system that actively marginalized qualified candidates. Although the tool promised increased objectivity, it ultimately reproduced the very gender disparities that hiring automation should help eliminate. This underscores the importance of interrogating how data collection and model design choices translate into real-world consequences.
+
+A further lesson from this example relates to the principle: “Be open to changing our methods and conclusions in response to new knowledge.” After internal teams discovered the model’s gender bias, Amazon chose not to deploy the system further. This decision, though belated, demonstrates an openness to reevaluating a flawed product in light of ethical concerns. In contrast to organizations that double down on problematic technologies, Amazon’s willingness to discontinue the project illustrates the need for ongoing critical review and the flexibility to pivot when systems fail to meet fairness standards. The ethical use of data science requires continual reassessment—not just during development, but also after deployment, as societal impacts become visible.
+
+Finally, the Amazon case also invites reflection on the question: “Who was measured? Are those individuals representative of the people to whom we’d like to generalize or apply the algorithm?” The training data consisted largely of resumes from male candidates who had previously been hired by Amazon. These individuals formed the benchmark against which new applicants were evaluated, reinforcing an unrepresentative hiring standard. Women and other underrepresented groups were effectively sidelined by a model designed to replicate historical success, rather than broaden it. This mismatch between the training population and the intended applicant pool highlights the dangers of generalizing from narrow or biased datasets. Without deliberate efforts to ensure that training data reflects the diversity of the modern workforce, algorithmic tools risk becoming vehicles for institutionalized exclusion.
+
+In sum, the Amazon AI hiring tool illustrates the necessity of embedding ethical reflection into every stage of the data science lifecycle—from data selection to deployment. Recognizing bias, evaluating societal impact, adapting to new information, and scrutinizing the representativeness of our datasets are not just technical tasks; they are moral imperatives. If we are to build AI systems that genuinely advance equity and opportunity, we must approach data science as both a technical and ethical endeavor.
 
 \
+Furthering the above content, my mom came across another article that I found particularly compelling and relevant to these ethical concerns. As a result, I’ve decided to include an additional discussion addressing some of the earlier questions and data ethics values, this time focusing on a new example: the facial recognition AI developed by Clearview AI. Clearview built its database by scraping billions of images from social media platforms—without the consent of the platforms or the individuals depicted. This unauthorized data collection has led to Clearview being fined tens of millions of dollars by multiple countries for violating privacy laws. Clearly, this data should not be used, as it was obtained without informed consent. Despite this, the U.S. government has not only refrained from penalizing Clearview but has actively adopted its technology in major federal agencies, including Immigration and Customs Enforcement (ICE) and the FBI.
 
-How can data science exacerbate current inequalities and what can be done to rely on AI but also ensure it is not inadvertently creating a bias. 
+Clearview’s technology is primarily deployed in law enforcement contexts and disproportionately targets marginalized populations, particularly along the U.S. border. One major ethical concern is the reinforcement of a surveillance feedback loop: over-policing certain communities leads to more recorded violations, which in turn justifies increased surveillance. This cycle perpetuates negative stereotypes—particularly of migrants—and may even serve institutional goals like securing greater funding for agencies like ICE. Perhaps most troubling is that the data powering Clearview’s technology was collected entirely without consent. The company has refused to disclose where the images came from, although it is widely understood that they were scraped from social media platforms.
 
-\
-
-Amazon’s now-discontinued AI recruiting tool serves as a powerful example of the unintended consequences AI can have when left unchecked. Designed to streamline and optimize the hiring process, the tool was trained on resumes submitted over a ten-year period—most of which came from men. As a result, it developed a bias against female candidates, downgrading resumes that included terms like “women’s” or references to all-women’s colleges. While the intention behind the program was positive, and it likely would have identified strong candidates, its flawed data input led it to replicate and even amplify existing gender disparities. This issue is especially relevant today: while data anonymity and security are heavily discussed and increasingly regulated, there is still a lack of clear frameworks for ensuring AI is used responsibly. The real challenge lies in holding companies accountable for the societal impacts of their AI systems—particularly when those impacts are subtle, systemic, and not immediately visible.
-
-This is an important lesson, as the biases that are found in the data that we feed the program will inevitably be reproduced by the program as it attempts to match what it has been given. I think an understanding of this concept will be important for preventing future issues but still testing the results of the AI algorithms is crucial to prevent any unintentional harm produced by the AI. This overall issue and the societal impacts of these AI programs fall under the following ethical dilemmas: Consider carefully the ethical implications of choices we make when using data, and the impacts of our work on individuals and society, Recognize and mitigate bias in ourselves and in the data we use. In the Amazon example there was a failure to see the bias in the data they were using which in turn led to an ethical dilemma of how they used the data; another example is one I found on MIT’s tech review page about the use of crime predictive systems.
-
-Predictive policing algorithms, like PredPol, have been criticized for perpetuating systemic racism by relying on biased data sources. Even when developers attempt to reduce bias by using victim reports instead of arrest records, these tools still disproportionately target Black and minority communities. This occurs because victim reports themselves can be influenced by societal biases and disparities in reporting practices. For instance, wealthier white individuals are more likely to report crimes committed by poorer Black individuals, and Black individuals are also more likely to report other Black individuals. These patterns lead algorithms to over-police certain neighborhoods, creating a feedback loop that reinforces existing inequalities. Efforts to adjust these models have shown limited success, highlighting the challenge of mitigating bias in predictive policing. The core issue lies not just in the data but in the structural and social conditions that skew crime data, making it difficult for algorithms to provide fair and accurate predictions.
-
-Similarly this program is utilizing biases for its learning which in turn leads to biases, and as this article pointed out these new biases created a feedback loop. This is a system that is still utilized and again should really be considered more thoughtfully as the impacts this system has on individuals in society is extreme and it promotes the very biases that much of society is actively trying to tear down. 
-
-\
-\
-
-Who was measured? Are those individuals representative of the people to whom we’d like to generalize / apply the algorithm?
-
-\
-
-Amazon AI Hiring Tool: **\
-**The individuals measured by Amazon’s AI hiring tool were applicants who had previously submitted resumes over a ten-year span, the majority of whom were men already hired by Amazon. These individuals became the data foundation for the algorithm, meaning the system essentially learned from and attempted to replicate the profile of past hires. However, this group is not representative of the broader population of talented job seekers Amazon might want to consider today, especially women and other underrepresented groups. The tool assumed the historical data reflected ideal hiring outcomes, without recognizing that past decisions might have been influenced by implicit biases or systemic exclusions. As a result, the algorithm favored male-associated language and penalized terms like “women’s,” leading to a skewed view of what constitutes a strong candidate. This misalignment between the training data and the intended applicant pool reveals how even well-intentioned AI can perpetuate inequality if the data used to train it isn't critically evaluated.
-
-Predictive Policing Algorithms:**\
-**In the case of predictive policing tools like those developed by Geolitica (formerly PredPol), the individuals measured are those who have historically been arrested or involved in recorded crime incidents—data that disproportionately comes from heavily policed, often low-income communities of color. These individuals do not represent the total population likely to commit crimes, nor do they reflect a fair cross-section of neighborhoods or demographic groups. Instead, they reflect the biases of decades of discriminatory policing practices. The algorithm then reinforces these patterns, continuously sending law enforcement back into the same areas because of a feedback loop: more police presence leads to more recorded incidents, which justifies further surveillance. This results in a misapplication of the tool, where the very people it targets are not a neutral or complete representation of crime trends but rather a reflection of systemic bias embedded in the data.
-
-\
-
-Recognize and mitigate bias in ourselves and in the data we use:
-
-The ethical principle of recognizing and mitigating bias is clearly illustrated in both the Amazon AI hiring tool and predictive policing algorithms, where the underlying data reflected long-standing inequalities. In Amazon’s case, the data came from a predominantly male hiring history, which led the algorithm to develop a preference for resumes resembling those of men—penalizing female-associated terms in the process. Although the system itself was technically proficient, it unknowingly mirrored the company’s past biases, reinforcing gender disparities rather than removing them. Similarly, predictive policing tools rely on historical crime data shaped by years of racially biased policing. These algorithms don’t just inherit that bias—they amplify it, creating cycles of over-policing in marginalized communities. These cases emphasize that bias isn't just a flaw in datasets, but often stems from unchallenged human assumptions. Recognizing this, and actively working to question and correct both our own blind spots and the flaws in the data we rely on, is essential for building AI systems that serve everyone fairly.
+Despite global condemnation and legal action from other countries, the U.S. government’s continued use of Clearview’s software raises serious concerns about the future of data privacy. While some states have introduced privacy laws, the absence of comprehensive federal legislation is striking. This gap is partly due to political gridlock, but also reflects what legal scholars have called the “increasing complexity of privacy concerns” (DLA Piper), which has made it difficult to craft and pass unified legislation. As a result, privacy protections in the U.S. remain fragmented and insufficient, with meaningful regulation often stalled or dismissed. Unless these issues are prioritized, we may not see robust federal privacy protections enacted anytime soon—an alarming prospect given the scale and scope of modern data collection practices.
 
 \
 \
 
-Consider carefully the ethical implications of choices we make when using data, and the impacts of our work on individuals and society.
+-   Dastin, Jeffrey. “Amazon Scraps Secret AI Recruiting Tool That Showed Bias Against Women.” Reuters, 10 Oct. 2018, [www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G](http://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G).
 
-Amazon AI Hiring Tool:**\
-**The ethical implications of Amazon’s AI hiring tool highlight the importance of scrutinizing how data choices can shape real-world outcomes. At face value, automating the hiring process promised efficiency and objectivity, but in reality, it reproduced and institutionalized gender bias present in the company’s past hiring patterns. The decision to train the algorithm on resumes of previously successful applicants ignored the possibility that historical decisions might have excluded qualified women. This oversight had tangible consequences: women’s resumes were systematically rated lower, reinforcing a biased notion of what a “qualified” applicant looks like. This example demonstrates how even subtle design choices—like which data to include or which features to emphasize—can lead to ethical missteps that affect individual opportunities and contribute to broader patterns of exclusion in the workforce.
+-   Hao, Karen. “Predictive Policing Algorithms Are Racist. They Need to Be Dismantled.” MIT Technology Review, 5 Feb. 2021, [www.technologyreview.com/2021/02/05/1017560/predictive-policing-racist-algorithmic-bias-data-crime-predpol](http://www.technologyreview.com/2021/02/05/1017560/predictive-policing-racist-algorithmic-bias-data-crime-predpol).
 
-Predictive Policing Algorithms:**\
-**The use of predictive policing algorithms underscores how data-driven decisions can deeply affect communities and reinforce systemic injustice. By basing predictions on historical arrest data, these systems essentially codify decades of racially biased policing into digital form. The impact goes beyond inaccurate forecasts—it determines where police are sent, who is surveilled, and ultimately who is criminalized. The ethical failure lies in treating biased data as objective truth, without accounting for the societal structures that shaped that data. This kind of technological decision-making not only affects individuals who are unfairly targeted but also erodes trust in public institutions and perpetuates a cycle of marginalization. It’s a stark reminder that the choices we make when building and deploying data systems have far-reaching consequences that extend well beyond technical performance.
+-   “Clearview AI’s Facial Recognition Technology Designed for Surveillance of Marginalized Groups, Report Reveals.” Business & Human Rights Resource Centre, www.business-humanrights.org/en/latest-news/clearview-ais-facial-recognition-technology-designed-for-surveillance-of-marginalized-groups-report-reveals.
 
-\
-\
+-   Hart, Robert. “Clearview AI: Controversial Facial Recognition Firm Fined \$33 Million for Illegal Database.” Forbes, 3 Sept. 2024, [www.forbes.com/sites/roberthart/2024/09/03/clearview-ai-controversial-facial-recognition-firm-fined-33-million-for-illegal-database](http://www.forbes.com/sites/roberthart/2024/09/03/clearview-ai-controversial-facial-recognition-firm-fined-33-million-for-illegal-database).
 
-Be open to changing our methods and conclusions in response to new knowledge.
+-   DLA Piper. “United States - Data Protection Overview.” DLA Piper Data Protection Laws of the World, [www.dlapiperdataprotection.com/?t=law&c=US](http://www.dlapiperdataprotection.com/?t=law&c=US).
 
-The value of being open to changing methods and conclusions in response to new knowledge is exemplified by Amazon’s decision to shut down its AI hiring tool after recognizing its embedded gender bias. Once the company identified that the system was unfairly penalizing resumes containing female-associated terms, they chose not to move forward with its deployment—even though the tool likely showed strong performance in other areas. This decision reflects a willingness to confront uncomfortable truths, reevaluate their approach, and prioritize fairness over automation. In contrast, predictive policing programs have continued to operate despite mounting evidence that they disproportionately target marginalized communities and reinforce systemic racism. Rather than pause or reconsider their deployment, many law enforcement agencies have persisted in using these tools, often citing their efficiency while overlooking the deep social costs. This contrast highlights the ethical divide between organizations willing to evolve in light of new understanding and those that continue harmful practices under the guise of technological progress.
-
-\
-\
-\
-\
-
-After writing the above content my mom came across another article related to these concepts which I thought was exceptionally intriguing so I have decided to add an additional couple paragraphs addressing a few of the earlier questions/values but with the new situation. The new example I am focusing on is the facial recognition AI program by Clearview AI. Clearview scraped billions of photos off of social media platforms without the consent of the platforms or the individuals and was actually fined tens of millions of dollars by multiple countries for disregarding privacy laws while creating their database. So clearly when looking at whether this data should be utilized it absolutely should not as there has been no consent to its acquisition and therefore its use. Yet the USA instead of imposing fines or attempting to restrict Clearview has implemented their technology in major branches of government. Similarly to predictive policing, this data is mainly utilized in law enforcement agencies, specifically ICE and the FBI. Also similarly, this data is mainly utilized to surveil marginalized populations (Business & Human Rights Resource Centre) along the borders and within the United States. 
-
-There are a couple of clear issues with this technology, beginning with the concept of over policing a certain demographic will lead to more violations, which leads to more policing and overall the same feedback loop found in predictive policing. This feedback loop would further promote negative stereotypes of migrants entering the US, which may be the goal of ICE as they would in turn receive more funding. Then the most disturbing issue being the fact that all of their data was taken without any consent by the individuals or the platforms that hosted them. Instead Clearview will not say where they accessed these photos although clearly they came from social media platforms. Clearview as discussed earlier has been criticized by other countries in a major way and yet the USA is instead supporting them which I find surprising and is a scary look for how the future of data privacy protection legislation may unfold. Currently privacy laws have been mainly designated by state especially because with so much political turmoil many large bills that have been introduced have been unable to pass. This is also due to the “increasing complexity of privacy concerns” (DLA Piper) which has made a comprehensive act essentially impossible to impose. Overall these privacy concerns has been pushed to the side and any efforts are quickly shut down so we may not be seeing any truly effective and comprehensive privacy legislation being implemented any time soon.
-
-\
-
-In conclusion maybe I should have discussed data collection because I had a general assumption that legislation was being slowly implemented to prevent programs such as this but I am clearly wrong. Illegal data collection will continue to be an enormous issue especially if the government financially supports it and puts millions of dollars into their contracts. 
-
-\
-\
-
-Amazon hiring tool: 
-
-<https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G/> 
-
-\
-
-MIT tech review(predictive policing): 
-
-<https://www.technologyreview.com/2021/02/05/1017560/predictive-policing-racist-algorithmic-bias-data-crime-predpol/#:~:text=It%27s%20no%20secret%20that%20predictive,lessen%20bias%20has%20little%20effect>. 
-
-\
-
-Clearview AI facial recognition:
-
-<https://www.business-humanrights.org/es/%C3%BAltimas-noticias/clearview-ais-facial-recognition-technology-designed-for-surveillance-of-marginalized-groups-report-reveals/> 
-
-<https://www.forbes.com/sites/roberthart/2024/09/03/clearview-ai-controversial-facial-recognition-firm-fined-33-million-for-illegal-database/> 
-
-\
-General privacy laws:
-
-<https://www.dlapiperdataprotection.com/?t=law&c=US#:~:text=Under%20the%20comprehensive%20US%20state,of%20targeted%20advertising%20or%20profiling>.\
-
-More examples: 
-
-<https://www.ibm.com/think/topics/shedding-light-on-ai-bias-with-real-world-examples> 
+-   IBM. “Shedding Light on AI Bias with Real World Examples.” IBM Think Blog, [www.ibm.com/think/topics/shedding-light-on-ai-bias-with-real-world-examples](http://www.ibm.com/think/topics/shedding-light-on-ai-bias-with-real-world-examples).
