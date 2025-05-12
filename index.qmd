@@ -1,7 +1,7 @@
 ---
 title: "Nicolas Laub-Sabater"
 
-image: IMG_4862.jpeg
+image: propic.png
 about: 
   template: jolla
   image-shape: round
