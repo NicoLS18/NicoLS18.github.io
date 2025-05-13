@@ -11,15 +11,15 @@ website:
 #      - about.qmd
       - text: "Data Viz"
         menu: 
-         - text: "AI Detectors"
+         - text: "The Effectiveness of AI Detectors"
            href: tt2.html
-         - text: "Olympics"
+         - text: "Olympics: height and weight relationships"
            href: Olympics.html
-         - text: "Obama Tweets"
+         - text: "Obama's Tweets"
            href: Obama.html
 #         - text: "Will I ever get a single?? Simulation"
 #           href: simulationproject.html
-         - text: "Ethical Dilemma"
+         - text: "The Ethics of Data Science"
            href: ethical.html
          - text: "Different Policing Across the Bay Bridge?"
            href: SQL.html           
