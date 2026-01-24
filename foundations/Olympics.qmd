@@ -1,0 +1,41 @@
+---
+title: "Olympics: Height and Weight"
+author: "Nicolas Laub-Sabater"
+execute: 
+  warning: false
+  message: false
+format:
+  html: 
+    code-fold: true
+---
+
+This is a historical dataset on the modern Olympic Games, including all the Games from Athens 1896 to Rio 2016. I scraped this data from [www.sports-reference.com](http://www.sports-reference.com/) in May 2018. It includes categories such as team, sport, height and weight. I have decided to take a look at the physical aspects of these athletes to see if there are any differences depending on where they come from around the globe.
+
+```{r, echo=FALSE}
+olympics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-08-06/olympics.csv')
+
+olympics
+
+library(ggplot2)
+library(tidyverse)
+
+
+
+
+```
+
+```{r}
+
+
+
+subset_olympics <- olympics |> 
+  dplyr::filter(team %in% c("United States", "China", "Netherlands"))
+ggplot(subset_olympics, aes(x=height, y=weight, color=team, shape=sex))+
+geom_point(alpha=0.7)
+  
+
+```
+
+As expected there is a fairly strong relationship between height and weight although certainly some outliers exist. Interestingly these outliers tend to be from the USA although there is a bias as there are overall more USA data points than either of the other countries. Other trends that are noticeable are females tend to be lighter and shorter although there is one outlier male that may be the lightest of all the data points. Additionally, china has a larger proportion of of data points that are taller than the rest which was surprising to me as I expected that to not be the case. And of course the Americans take the trophy for heaviest people, furthering the stereotype that Americans are fat even though obviously these are elite athletes.
+
+This comes from the tidy tuesday of August the 6th in 2024: https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-08-06/readme.md This data specifically comes from RGriffin, it offers a comprehensive historical record of the modern Olympic Games, covering every event from the first Games in Athens in 1896 up to the Rio Games in 2016. The data was collected by the author through web scraping of www.sports-reference.com in May 2018. The R code used for both scraping and cleaning the data is available on GitHub. It’s highly recommended to review the author's kernel before starting your own analysis, as it provides valuable insights and methodologies that can enhance your work with this dataset.
