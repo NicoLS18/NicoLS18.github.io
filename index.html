@@ -1,5 +1,35 @@
 <html> 
-<head> 
+<head>
+  <title>Nicolas Laub Webpage</title>
+    <!-- You can use open graph tags to customize link previews.
+    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+  <meta property="og:url"           content="https://nicols18.github.io/" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="My Webpage" />
+  <meta property="og:description"   content="Starter stuff" />
+  <meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
+
+
+<style> 
+    li.menu {
+        Background-color: lightblue;
+        float: left;
+          margin: 0;
+  padding: 10;
+  display: block;
+
+    }
+    li#selected { 
+        background-color: blue;
+    }
+ol.menu { 
+    list-style-type: none;
+    margin: 0;
+  padding: 0;
+  display: block;
+}
+
+</style>
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NXBCWGEDN1"></script>
@@ -11,23 +41,35 @@
   gtag('config', 'G-NXBCWGEDN1');
 </script>
 
-<body>    </body>
+<body>    
 
 
 
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v24.0&appId=844918458541779"></script>
+<script async defer crossorigin="anonymous" 
+src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v24.0&appId=844918458541779">
+</script>
+<div>
+<h1 style="color: red;">The Zoo</h1>
 
-<p>
-<b> hello world </b> 
+<ol class="menu">
+    <li class="menu"> <a href="https://en.wikipedia.org/wiki/Elephant">Elephant</a></li>
+    <li class="menu"> Giraffe</li>
+    <li id="selected", class="menu"> Lion</li>
+    <li class="menu"> Tiger</li>
+</ol>
+</div>
 
-<i> hola mundo </i> 
-
-<strong> Wow </strong> 
 </p>
-<p>
-HTML is "whitespace        insensitive " beacuse white space doesnt make any changes 
-</p><div class="fb-like" data-href="https://nicols18.github.io/" data-width="" data-layout="" data-action="" data-size="" data-share="true"></div>
+<br>
+<div class="fb-like"
+     data-href="https://nicols18.github.io/"
+     data-layout="button_count"
+     data-action="like"
+     data-size="small"
+     data-share="true">
+</div>
+
 
 <br>
 <br>
@@ -37,6 +79,6 @@ HTML is "whitespace        insensitive " beacuse white space doesnt make any cha
 <br>
 
 <a href="https://Nicols18.github.io/">Nicols18.github.io/</a> © 2026 by <a href="https://example.com">Nicolas Laub-Sabater</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
-
+</body>
 
 </html>
