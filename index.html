@@ -1,37 +1,13 @@
-<html> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Nicolas Laub Webpage</title>
-    <!-- You can use open graph tags to customize link previews.
-    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
-  <meta property="og:url"           content="https://nicols18.github.io/" />
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="My Webpage" />
-  <meta property="og:description"   content="Starter stuff" />
-  <meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
-
-
-<style> 
-    li.menu {
-        Background-color: lightblue;
-        float: left;
-          margin: 0;
-  padding: 10;
-  display: block;
-
-    }
-    li#selected { 
-        background-color: blue;
-    }
-ol.menu { 
-    list-style-type: none;
-    margin: 0;
-  padding: 0;
-  display: block;
-}
-
-</style>
-</head>
-<!-- Google tag (gtag.js) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Wildwood Zoo - home to exotic animals from around the world. Explore our exhibits, learn about conservation, and plan your visit today.">
+    <title>Wildwood Zoo - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NXBCWGEDN1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -40,45 +16,83 @@ ol.menu {
 
   gtag('config', 'G-NXBCWGEDN1');
 </script>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="animals.html">Animals</a></li>
+            <li><a href="visit.html">Visit</a></li>
+        </ul>
+    </nav>
 
-<body>    
+    <header>
+        <h1>Welcome to Wildwood Zoo</h1>
+    </header>
 
+    <main>
+        <div class="hero-section">
+            <img src="zoo-entrance.jpg" alt="Wildwood Zoo main entrance with stone archway and lush gardens">
+            <p>Discover the wonders of wildlife at Wildwood Zoo, where conservation meets education. Our zoo is home to over 200 species from six continents, providing visitors with unforgettable experiences and inspiring a passion for protecting our planet's incredible biodiversity.</p>
+        </div>
 
+        <div class="featured-content">
+            <h2>Why Visit Wildwood Zoo?</h2>
+            <p>At Wildwood Zoo, we believe in creating meaningful connections between people and animals. Our world-class facilities provide naturalistic habitats that prioritize animal welfare while offering visitors incredible viewing opportunities. Every admission ticket directly supports our conservation programs working to protect endangered species in the wild.</p>
+            
+            <p>From the majestic African savanna exhibit to our immersive rainforest biodome, each area of the zoo has been carefully designed to educate and inspire. Our dedicated team of keepers, veterinarians, and educators work tirelessly to ensure every animal receives exceptional care while sharing their knowledge with our guests through daily talks, feeding demonstrations, and interactive programs.</p>
+        </div>
 
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" 
-src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v24.0&appId=844918458541779">
-</script>
-<div>
-<h1 style="color: red;">The Zoo</h1>
+        <div class="highlights">
+            <h2>Zoo Highlights</h2>
+            <ul>
+                <li><span class="highlight-text">African Savanna</span> - Watch elephants, giraffes, and lions in our expansive 5-acre habitat</li>
+                <li><span class="highlight-text">Rainforest Biodome</span> - Walk through a climate-controlled tropical paradise with free-flying birds and butterflies</li>
+                <li><span class="highlight-text">Penguin Cove</span> - Experience underwater viewing of our playful penguin colony during daily feeding times</li>
+                <li><span class="highlight-text">Children's Zoo</span> - Get up close with friendly farm animals and learn about domestic species</li>
+                <li><span class="highlight-text">Conservation Center</span> - Discover our breeding programs for endangered species</li>
+            </ul>
+        </div>
 
-<ol class="menu">
-    <li class="menu"> <a href="https://en.wikipedia.org/wiki/Elephant">Elephant</a></li>
-    <li class="menu"> Giraffe</li>
-    <li id="selected", class="menu"> Lion</li>
-    <li class="menu"> Tiger</li>
-</ol>
-</div>
+        <div class="visitor-info-table">
+            <h2>Visitor Information</h2>
+            <table>
+                <tr>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Hours</th>
+                </tr>
+                <tr>
+                    <td>Adults (18-64)</td>
+                    <td>$25.00</td>
+                    <td>9:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td>Seniors (65+)</td>
+                    <td>$20.00</td>
+                    <td>9:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td>Children (3-17)</td>
+                    <td>$15.00</td>
+                    <td>9:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td>Children (0-2)</td>
+                    <td>Free</td>
+                    <td>9:00 AM - 6:00 PM</td>
+                </tr>
+            </table>
+        </div>
 
-</p>
-<br>
-<div class="fb-like"
-     data-href="https://nicols18.github.io/"
-     data-layout="button_count"
-     data-action="like"
-     data-size="small"
-     data-share="true">
-</div>
+        <div class="external-links">
+            <h2>Educational Resources</h2>
+            <p>We partner with leading educational institutions to promote wildlife conservation and computer science education. Visit the <a href="https://github.com/mikeizbicki/cmc-csci040" rel="follow">CMC CSCI040 course webpage</a> to learn about web development, or explore <a href="https://izbicki.me" rel="follow">Mike Izbicki's personal webpage</a> for more educational resources.</p>
+        </div>
+    </main>
 
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<a href="https://Nicols18.github.io/">Nicols18.github.io/</a> © 2026 by <a href="https://example.com">Nicolas Laub-Sabater</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+    <footer>
+        <p>&copy; 2024 Wildwood Zoo. All rights reserved. | A conservation-focused zoological park.</p>
+    </footer>
 </body>
-
 </html>
